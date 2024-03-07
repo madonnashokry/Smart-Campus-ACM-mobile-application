@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">smart campus ACM</string>
+    <string name="aid_description">nfc host card emulation activity</string>
+    <string name="service_description" />
+</resources>
