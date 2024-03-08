@@ -1,39 +1,26 @@
 package com.campus.acm;
 
 import static android.content.ContentValues.TAG;
-
-import android.app.Service;
-import android.content.Intent;
-import android.os.IBinder;
 import android.content.Context;
-import android.content.Intent;
 import android.nfc.cardemulation.HostApduService;
 import android.os.Bundle;
 import android.os.Vibrator;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import android.util.Log;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.DataInputStream;
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
-import androidx.annotation.Nullable;
+
 
 public class HostCardEmulatorService extends HostApduService {
 
     //constants
-
-    // the response sent from the phone if it does not understand an APDU
     private static final byte[] UNKNOWN_COMMAND_RESPONSE = {(byte) 0xff};
-
     private static final byte[] SELECT_AID_COMMAND = {
             (byte) 0x00, // Class
             (byte) 0xA4, // Instruction
             (byte) 0x04, // Parameter 1
             (byte) 0x00, // Parameter 2
             (byte) 0x06, // length
-            (byte) 0xF0,
+            (byte) 0xF0, // AID
             (byte) 0xAB,
             (byte) 0xCD,
             (byte) 0xEF,
@@ -87,7 +74,7 @@ public class HostCardEmulatorService extends HostApduService {
         try {
             return SecurePreferencesHelper.getToken(getApplicationContext()).getBytes("ASCII");
         } catch (UnsupportedEncodingException e) {
-            throw new IllegalStateException(e); // never happens
+            throw new IllegalStateException(e);
         }
     }
     private void notifyLinkEstablished() {

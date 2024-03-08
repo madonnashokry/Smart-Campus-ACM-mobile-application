@@ -1,16 +1,10 @@
 package com.campus.acm;
-import android.content.Context;
-import android.content.SharedPreferences;
+
 import android.os.Bundle;
-
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.security.crypto.EncryptedSharedPreferences;
-import androidx.security.crypto.MasterKey;
-
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.security.MessageDigest;
