@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Attendence_tracking">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="81dp"
+            android:gravity="center_vertical"
+            android:background="#0E9090"
+            android:orientation="horizontal">
+
+            <!-- Left arrow icon -->
+            <ImageButton
+                android:id="@+id/backkk"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/leftarrow"
+
+
+                />
+
+            <!-- Text in the center -->
+            <TextView
+                android:id="@+id/textViewCenter"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Attendence Tracking"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                android:gravity="center"/>
+
+            <!-- Notification icon on the right -->
+            <ImageButton
+                android:id="@+id/notfybtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/notfc" />
+           </LinearLayout>
+
+
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/chart"
+            android:layout_width="match_parent"
+            android:layout_height="336dp" />
+
+
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/logee"
+        android:layout_width="wrap_content"
+        android:layout_height="56dp"
+        android:src="@drawable/log"
+        tools:layout_editor_absoluteX="14dp"
+        tools:layout_editor_absoluteY="522dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="81dp"
+
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        tools:layout_editor_absoluteX="2dp"
+        tools:layout_editor_absoluteY="503dp">
+
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

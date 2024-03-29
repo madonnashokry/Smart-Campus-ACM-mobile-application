@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".Resetpass">
+
+    <ViewFlipper
+        android:id="@+id/view_flipper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- First view -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <ImageView
+                android:id="@+id/email_image"
+                android:layout_width="276dp"
+                android:layout_height="278dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.267"
+                app:srcCompat="@drawable/email" />
+
+            <TextView
+                android:id="@+id/verif_code_text"
+                android:layout_width="356dp"
+                android:layout_height="67dp"
+                android:fontFamily="@font/poppins_bold"
+                android:text="Please enter the code we sent to your E-mail!"
+                android:textColor="#000000"
+                android:textSize="17dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.05" />
+
+            <EditText
+                android:id="@+id/verif_code"
+                android:layout_width="369dp"
+                android:layout_height="69dp"
+                android:background="@drawable/rectangle"
+                android:drawablePadding="10dp"
+                android:ems="10"
+                android:focusableInTouchMode="true"
+                android:inputType="textVisiblePassword"
+                android:paddingLeft="20dp"
+                android:textColorHint="@color/dark_grey"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.15" />
+        </LinearLayout>
+
+        <!-- Second view -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <EditText
+                android:id="@+id/new_password_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="53dp"
+                android:background="@drawable/rounded_textbox"
+                android:drawablePadding="10dp"
+                android:hint="New Password" />
+
+            <EditText
+                android:id="@+id/confirm_password_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="53dp"
+                android:background="@drawable/rounded_textbox"
+                android:drawablePadding="10dp"
+                android:hint="Confirm Password" />
+
+            <Button
+                android:id="@+id/resetbtn"
+                android:layout_width="348dp"
+                android:layout_height="62dp"
+                android:layout_marginTop="592dp"
+                android:backgroundTint="#1E9090"
+                android:fontFamily="@font/poppins_bold"
+                android:padding="15dp"
+                android:text="Reset Password"
+                android:textAlignment="center"
+                android:textSize="20dp"
+                app:cornerRadius="?attr/listPreferredItemHeightLarge"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.494"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </LinearLayout>
+
+    </ViewFlipper>
+
+</LinearLayout>

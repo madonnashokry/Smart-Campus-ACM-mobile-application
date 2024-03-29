@@ -17,16 +17,43 @@
         android:theme="@style/Theme.SmartCampusACM"
         tools:targetApi="31"
         >
+        <activity
+            android:name=".SignInActivity"
+            android:exported="true" />
 
+
+        <activity
+            android:name=".SignUp"
+            android:exported="true" />
+
+        <activity
+            android:name=".Logfile"
+            android:exported="false" />
+
+
+
+        <activity
+            android:name=".Attendence_tracking"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- MainActivity is not the launcher activity anymore -->
         <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".upcoming_meetings"
+            android:exported="true" />
 
         <activity android:name=".Token"
             android:exported="true">
@@ -39,7 +66,6 @@
             <intent-filter>
                 <action android:name="android.nfc.cardemulation.action.HOST_APDU_SERVICE" />
             </intent-filter>
-
             <meta-data
                 android:name="android.nfc.cardemulation.host_apdu_service"
                 android:resource="@xml/apdu_service" />
