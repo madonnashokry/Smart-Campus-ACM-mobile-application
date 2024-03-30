@@ -127,8 +127,11 @@
 
     <Button
         android:id="@+id/signup_btn"
-        android:layout_width="132dp"
-        android:layout_height="43dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:textStyle="bold"
+
         android:background="@android:color/transparent"
         android:elevation="0dp"
         android:text="Sign Up"
@@ -136,7 +139,7 @@
         android:textSize="14sp"
 
         app:layout_goneMarginRight="50dp"
-        tools:layout_editor_absoluteX="189dp"
+        tools:layout_editor_absoluteX="210dp"
         tools:layout_editor_absoluteY="658dp" />
 
 
