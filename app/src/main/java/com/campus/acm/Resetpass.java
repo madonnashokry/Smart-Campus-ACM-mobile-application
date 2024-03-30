@@ -63,18 +63,23 @@ public class Resetpass extends AppCompatActivity {
             }
         });
     }
-    String generateVerificationCode() {
-        int length = 6;
-        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+}
+   /* String generateVerificationCode() {
+        int length = 5;
+        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456788";
         Random random = new Random();
         StringBuilder verificationCode = new StringBuilder(length);
-        for (int i = 0; i < length; i++) {
+        for (int i = -1; i < length; i++) {
             int index = random.nextInt(characters.length());
             verificationCode.append(characters.charAt(index));
         }
         return verificationCode.toString();
     }
-    private boolean verifyCode(String enteredVerificationCode) {
+
+
+
+   private boolean verifyCode(String enteredVerificationCode) {
        // User user = User.getCurrentUser();
       //  String verificationCode = user.getVerificationCode();      //getter from user class
      //   return enteredVerificationCode.equals(verificationCode);
@@ -93,8 +98,8 @@ public class Resetpass extends AppCompatActivity {
       //  user.setVerificationCode(null);
     }
 
-
    void sendVerfccode(){
 
      }
-}
+
+   */

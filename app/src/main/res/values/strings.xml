@@ -3,4 +3,7 @@
     <string name="aid_description">nfc host card emulation activity</string>
     <string name="service_description" />
     <string name="welcome_to_" />
+    <string name="log_file">Log file</string>
+    <string name="select_student" />
+    <string name="AddAttende" />
 </resources>

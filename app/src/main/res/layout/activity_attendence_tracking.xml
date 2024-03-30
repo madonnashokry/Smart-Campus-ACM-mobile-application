@@ -12,7 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
@@ -28,13 +27,10 @@
             <ImageButton
                 android:id="@+id/backkk"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="59dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:src="@drawable/leftarrow"
-
-
-                />
+                android:src="@drawable/leftarrow" />
 
             <!-- Text in the center -->
             <TextView
@@ -42,10 +38,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Attendence Tracking"
+                android:text="Attendance Tracking"
                 android:textColor="#FFFFFF"
                 android:textSize="18sp"
-                android:gravity="center"/>
+                android:gravity="center" />
 
             <!-- Notification icon on the right -->
             <ImageButton
@@ -55,34 +51,26 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="16dp"
                 android:src="@drawable/notfc" />
-           </LinearLayout>
-
+        </LinearLayout>
 
         <com.github.mikephil.charting.charts.PieChart
             android:id="@+id/chart"
             android:layout_width="match_parent"
-            android:layout_height="336dp" />
-
+            android:layout_height="440dp" />
 
     </LinearLayout>
 
-    <ImageButton
+    <Button
         android:id="@+id/logee"
-        android:layout_width="wrap_content"
-        android:layout_height="56dp"
-        android:src="@drawable/log"
-        tools:layout_editor_absoluteX="14dp"
-        tools:layout_editor_absoluteY="522dp" />
+        android:layout_width="171dp"
+        android:layout_height="47dp"
+        android:layout_marginBottom="100dp"
+        android:drawableStart="@drawable/logrec"
+        android:text="Log file"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.937"
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="81dp"
-
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        tools:layout_editor_absoluteX="2dp"
-        tools:layout_editor_absoluteY="503dp">
-
-
-    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

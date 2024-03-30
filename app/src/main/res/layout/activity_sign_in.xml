@@ -127,17 +127,17 @@
 
     <Button
         android:id="@+id/signup_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="132dp"
+        android:layout_height="43dp"
         android:background="@android:color/transparent"
         android:elevation="0dp"
         android:text="Sign Up"
         android:textColor="@color/green"
         android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="@id/dont_have_account_text"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@id/dont_have_account_text"
-        app:layout_constraintTop_toTopOf="@id/dont_have_account_text" />
+
+        app:layout_goneMarginRight="50dp"
+        tools:layout_editor_absoluteX="189dp"
+        tools:layout_editor_absoluteY="658dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

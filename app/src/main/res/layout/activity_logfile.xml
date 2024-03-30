@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -12,9 +11,14 @@
 
     <RelativeLayout
         android:id="@+id/rlTopBar"
-        android:layout_width="match_parent"
-        android:layout_height="94dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="41dp"
         android:background="#0E9090"
+        app:layout_constraintBottom_toTopOf="@+id/rlEntry2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints">
 
         <!-- Back button -->
@@ -23,25 +27,25 @@
 
         <ImageButton
             android:id="@+id/back"
-            android:layout_width="wrap_content"
+            android:layout_width="65dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="20dp"
             android:src="@drawable/leftarrow"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:padding="8dp"
             android:text="Log File"
             android:textColor="@android:color/white"
             android:textSize="18sp"
-            android:layout_centerInParent="true"
-            android:padding="8dp"
             app:layout_constraintStart_toEndOf="@id/back"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
     </RelativeLayout>
 
     <!-- Log entries -->
@@ -61,11 +65,16 @@
 
     <RelativeLayout
         android:id="@+id/rlEntry1"
-        android:layout_width="381dp"
-        android:layout_height="113dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="14dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginBottom="63dp"
         android:background="@color/grey"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="299dp"
+        app:layout_constraintBottom_toTopOf="@+id/rlEntry3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rlEntry2"
         tools:ignore="MissingConstraints">
 
         <!-- Date -->
@@ -100,12 +109,17 @@
 
     <RelativeLayout
         android:id="@+id/rlEntry2"
-        android:layout_width="381dp"
-        android:layout_height="113dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="14dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginBottom="51dp"
         android:background="@color/grey"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="135dp">
+        app:layout_constraintBottom_toTopOf="@+id/rlEntry1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rlTopBar"
+        tools:ignore="MissingConstraints">
 
         <!-- Date -->
         <TextView
@@ -132,12 +146,17 @@
 
     <RelativeLayout
         android:id="@+id/rlEntry3"
-        android:layout_width="381dp"
-        android:layout_height="113dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="14dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginBottom="143dp"
         android:background="@color/grey"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="475dp">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rlEntry1"
+        tools:ignore="MissingConstraints">
 
         <!-- Date -->
         <TextView

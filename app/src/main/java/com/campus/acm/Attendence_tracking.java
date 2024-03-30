@@ -27,7 +27,7 @@ public class Attendence_tracking extends AppCompatActivity {
     ImageButton notfcbtn ;
     ImageButton backbtn ;
     EditText search;
-    ImageButton logfle ;
+    Button logfle ;
    // ListView list;
     @Override
 
