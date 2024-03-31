@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".Profile"
+    android:background="#EFEBEB"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="79dp"
+        android:background="#1E9090">
+
+        <TextView
+            android:id="@+id/profile_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="My Profile"
+            android:textColor="#F5F5F5"
+            android:textSize="30dp"
+            android:textStyle="normal|bold" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="649dp">
+
+        <ImageView
+            android:id="@+id/male_user_ek1"
+            android:layout_width="125dp"
+            android:layout_height="125dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="16dp"
+            android:contentDescription="male_user_ek1"
+            android:src="@drawable/male_user_ek1" />
+
+        <TextView
+            android:id="@+id/rewan_wael"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="9dp"
+            android:layout_marginTop="55dp"
+            android:layout_marginRight="15dp"
+            android:layout_toRightOf="@id/male_user_ek1"
+            android:gravity="center"
+            android:text="Rewan Wael"
+            android:textColor="#1E9090"
+            android:textSize="23dp"
+            android:textStyle="normal|bold" />
+
+        <TextView
+            android:id="@+id/edit_account_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/male_user_ek1"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:text="EDIT ACCOUNT INFORMATION"
+            android:textColor="#1E9090"
+            android:textSize="23dp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/first_name_edittext"
+            android:layout_width="340dp"
+            android:layout_height="48dp"
+            android:layout_below="@id/edit_account_info"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="17dp"
+            android:paddingStart="15dp"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/rounded_rectangle"
+            android:hint="First Name"
+            android:textSize="20dp" />
+
+        <EditText
+            android:id="@+id/last_name_edittext"
+            android:layout_width="340dp"
+            android:layout_height="48dp"
+            android:layout_below="@id/first_name_edittext"
+            android:layout_marginTop="13dp"
+            android:layout_marginStart="20dp"
+            android:paddingStart="15dp"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/rounded_rectangle"
+            android:hint="Last Name"
+            android:textSize="20dp" />
+
+        <EditText
+            android:id="@+id/password_edittext"
+            android:layout_width="340dp"
+            android:layout_height="48dp"
+            android:layout_below="@id/last_name_edittext"
+            android:layout_marginTop="13dp"
+            android:layout_marginStart="20dp"
+            android:paddingStart="15dp"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/rounded_rectangle"
+            android:hint="Password"
+            android:textSize="20dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/password_edittext"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:text="CHANGE PASSWORD"
+            android:textColor="#1E9090"
+            android:textSize="23dp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:layout_width="340dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="420dp"
+            android:layout_marginStart="20dp"
+            android:paddingStart="15dp"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/rounded_rectangle"
+            android:hint="Current Password"
+            android:textSize="20dp" />
+
+        <EditText
+            android:layout_width="340dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="480dp"
+            android:layout_marginStart="20dp"
+            android:paddingStart="15dp"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/rounded_rectangle"
+            android:hint="New Password"
+            android:textSize="20dp" />
+
+
+        <EditText
+            android:layout_width="340dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="538dp"
+            android:layout_marginStart="20dp"
+            android:paddingStart="15dp"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/rounded_rectangle"
+            android:hint="Confirm Password"
+            android:textSize="20dp" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="125dp"
+            android:layout_height="45dp"
+            android:text="Save"
+            android:textColor="#F5F5F5"
+            android:textSize="20dp"
+            android:textStyle="normal"
+            android:background="@drawable/btn"
+            android:layout_gravity="center"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="595dp"
+            android:minHeight="48dp"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

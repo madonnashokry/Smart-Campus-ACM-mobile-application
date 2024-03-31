@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#1E9090"
+    tools:context=".Home"
+    android:orientation="horizontal"
+    >
+
+    <ImageView
+        android:id="@+id/male_user"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:contentDescription="male_user"
+        android:src="@drawable/male_user"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <ImageView
+        android:id="@+id/home_ek3"
+        android:src="@drawable/home_ek3"
+        android:contentDescription="home_ek3"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="67dp"
+        android:layout_width="80dp"
+        android:layout_height="99dp" />
+
+    <TextView
+        android:id="@+id/welcome_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/home_ek3"
+        android:layout_alignTop="@id/home_ek3"
+        android:text="Welcome to
+
+        Home Page!"
+        android:textColor="#F5F5F5"
+        android:textStyle="bold|italic"
+        android:textSize="35dp"/>
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- Add your content views here -->
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="550dp"
+            android:layout_gravity="bottom"
+            android:background="@drawable/bottom_dialog" />
+
+        <!-- Buttons inside the bottom dialog -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:padding="16dp"
+            android:background="@drawable/bottom_dialog">
+
+
+
+            <Button
+                android:background="@drawable/btn"
+                android:layout_gravity="center"
+                android:layout_width="326dp"
+                android:layout_height="65dp"
+                android:layout_marginBottom="15dp"
+                android:gravity="center"
+                android:text="Schedule New Meeting"
+                android:textColor="#F5F5F5"
+                android:textSize="22dp"
+                android:textStyle="normal"></Button>
+
+            <Button
+                android:background="@drawable/btn"
+                android:layout_gravity="center"
+                android:layout_width="326dp"
+                android:layout_height="65dp"
+                android:layout_marginBottom="15dp"
+                android:text="My Upcoming Meetings"
+                android:textColor="#F5F5F5"
+                android:textStyle="normal"
+                android:gravity="center"
+                android:textSize="22dp">
+            </Button>
+
+            <Button
+                android:background="@drawable/btn"
+                android:layout_gravity="center"
+                android:layout_width="326dp"
+                android:layout_height="65dp"
+                android:layout_marginBottom="15dp"
+                android:text="My Planned Meetings"
+                android:textColor="#F5F5F5"
+                android:textStyle="normal"
+                android:gravity="center"
+                android:textSize="22dp">
+            </Button>
+
+            <Button
+                android:background="@drawable/btn"
+                android:layout_width="326dp"
+                android:layout_height="65dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="My Previous Meetings"
+                android:textColor="#F5F5F5"
+                android:textSize="22dp"
+
+                android:textStyle="normal"></Button>
+
+        </LinearLayout>
+    </FrameLayout>
+</RelativeLayout>

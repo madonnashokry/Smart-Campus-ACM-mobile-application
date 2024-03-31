@@ -1,0 +1,126 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#F5F5F5"
+    tools:context=".Scheduling">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#1E9090"
+        android:textSize="28dp"
+        android:layout_gravity="center"
+        android:textStyle="bold|italic"
+        android:layout_marginTop="25dp"
+        android:text="Schedule New Meeting" />
+
+    <EditText
+        android:id="@+id/editTextText"
+        android:layout_width="360dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        android:text="Campus:"
+        android:textColor="#626A6A"
+        android:textStyle="normal|bold"
+        android:layout_marginTop="25dp"
+        android:layout_gravity="center"
+        android:minHeight="48dp"/>
+
+    <EditText
+        android:id="@+id/editTextText2"
+        android:layout_width="360dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        android:text="Building:"
+        android:textColor="#626A6A"
+        android:textStyle="normal|bold"
+        android:layout_marginTop="25dp"
+        android:layout_gravity="center"
+        android:minHeight="48dp"/>
+
+    <EditText
+        android:id="@+id/editTextText3"
+        android:layout_width="360dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        android:text="Room:"
+        android:textColor="#626A6A"
+        android:textStyle="normal|bold"
+        android:layout_marginTop="25dp"
+        android:layout_gravity="center"
+        android:minHeight="48dp"/>
+
+    <EditText
+        android:id="@+id/editTextText4"
+        android:layout_width="360dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        android:text="Date:"
+        android:textColor="#626A6A"
+        android:textStyle="normal|bold"
+        android:layout_marginTop="25dp"
+        android:layout_gravity="center"
+        android:minHeight="48dp"/>
+
+    <EditText
+        android:id="@+id/editTextText5"
+        android:layout_width="360dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        android:text="Start Time:"
+        android:textColor="#626A6A"
+        android:textStyle="normal|bold"
+        android:layout_marginTop="25dp"
+        android:layout_gravity="center"
+        android:minHeight="48dp"  />
+
+
+    <EditText
+        android:id="@+id/editTextText6"
+        android:layout_width="360dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        android:text="End Time:"
+        android:textColor="#626A6A"
+        android:textStyle="normal|bold"
+        android:layout_marginTop="25dp"
+        android:layout_gravity="center"
+        android:minHeight="48dp"/>
+
+    <EditText
+        android:id="@+id/editTextText7"
+        android:layout_width="360dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        android:text="Subject:"
+        android:textColor="#626A6A"
+        android:textStyle="normal|bold"
+        android:layout_marginTop="25dp"
+        android:layout_gravity="center"
+        android:minHeight="48dp"/>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:text="Add Attendee"
+        android:textColor="#F5F5F5"
+        android:textSize="20dp"
+        android:textStyle="normal"
+        android:background="@drawable/btn"
+        android:layout_gravity="center"
+        android:layout_marginTop="25dp"
+        android:minHeight="48dp"/>
+
+</LinearLayout>

@@ -10,13 +10,13 @@
         android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context=".upcoming_meetings">
+        tools:context=".Previous_Meetings">
 
         <TextView
             android:id="@+id/meetings_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Upcoming Meetings"
+            android:text="Previous Meetings"
             android:textColor="#626A6A"
             android:textSize="27dp"
             android:textStyle="bold"

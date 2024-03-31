@@ -14,17 +14,9 @@ public class Logfile extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //    EdgeToEdge.enable(this);
-        //  setContentView(R.layout.activity_logfile);
+          setContentView(R.layout.activity_logfile);
         backbtn = findViewById(R.id.back);
 
-
-        backbtn.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Intent i =new Intent(Logfile.this, Attendence_tracking.class);
-                startActivity(i);
-            }
-        });
     }
+
 }

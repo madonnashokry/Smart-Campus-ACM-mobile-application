@@ -33,52 +33,28 @@ public class Attendence_tracking extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_attendence_tracking);
         notfcbtn = findViewById(R.id.notfybtn);
         backbtn = findViewById(R.id.backkk);
         // search = findViewById(R.id.serch) ;
         logfle = findViewById(R.id.logee);
-        PieChart pie = findViewById(R.id.chart) ;
+        PieChart pie = findViewById(R.id.chart);
         ArrayList<PieEntry> data = new ArrayList<>();
-        data.add(new PieEntry(80,"Attendence") );
-        PieDataSet pieDataSet = new PieDataSet(data,"Attendence") ;
-       // pieDataSet.setColor);
+        data.add(new PieEntry(80, "Attendance"));
+        PieDataSet pieDataSet = new PieDataSet(data, "");
+        pieDataSet.setColors(getResources().getColor(R.color.green)); // Set the color to green
         PieData pieData = new PieData(pieDataSet);
         pie.setData(pieData);
+        pie.setCenterText("Attendance\n80%"); // Set the text as Attendance with 80% percentage
         pie.getDescription().setEnabled(false);
         pie.animateY(1000);
         pie.invalidate();
 
 
-                /*
 
-        Pie pie = AnyChart.pie();
-        List<DataEntry> data = new ArrayList<>();
-        data.add(new ValueDataEntry("Madonna", 10000));
-
-
-        pie.data(data);
-
-        AnyChartView anyChartView = (AnyChartView) findViewById(R.id.any_chart_view);
-        anyChartView.setChart(pie);
-         */
-        backbtn.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Attendence_tracking.this, upcoming_meetings.class));
-            }
-        });
-
-        logfle.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Attendence_tracking.this, Logfile.class));
-            }
-        });
-
+       }
     }
-    }
+
        /*
         notfcbtn.setOnClickListener(new View.OnClickListener(){
 
