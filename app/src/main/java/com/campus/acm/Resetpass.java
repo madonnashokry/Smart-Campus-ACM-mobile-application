@@ -1,41 +1,31 @@
 package com.campus.acm;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
-
-import java.util.Random;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class Resetpass extends AppCompatActivity {
 
 
-     ViewFlipper ViewFlipper;
-       EditText EmailEditText;
-      EditText VerificationCode;
-      EditText NewPassword;
-     EditText ConfirmPassword;
-     TextView mErrorTextView;
-     Button reset;
+    ViewFlipper ViewFlipper;
+    EditText EmailEditText;
+    EditText VerificationCode;
+    EditText NewPassword;
+    EditText ConfirmPassword;
+    TextView mErrorTextView;
+    Button reset;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resetpass);
-        ViewFlipper = findViewById(R.id.view_flipper);
-     //  mEmailEditText = findViewById(R.id.email_edit_text);
-        VerificationCode = findViewById(R.id.verif_code);
-        NewPassword = findViewById(R.id.new_password_edit_text);
-        ConfirmPassword = findViewById(R.id.confirm_password_edit_text);
-       // mErrorTextView = findViewById(R.id.error_text_view);
-        reset =findViewById(R.id.resetbtn);
 
+    }
+}
 
         // retrieve the email address from the User class
      //   User user = User.User();
@@ -43,6 +33,7 @@ public class Resetpass extends AppCompatActivity {
 
 
 
+       /*
         reset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -101,5 +92,4 @@ public class Resetpass extends AppCompatActivity {
    void sendVerfccode(){
 
      }
-
-   */
+*/

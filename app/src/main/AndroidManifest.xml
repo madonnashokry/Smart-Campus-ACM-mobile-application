@@ -20,62 +20,57 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SmartCampusACM"
         tools:targetApi="31">
+
         <activity
             android:name=".Planned_Meetings"
             android:exported="true" />
         <activity
             android:name=".Previous_Meetings"
             android:exported="true" />
-
         <activity
             android:name=".upcoming_meetings"
             android:exported="true" />
-        <activity
-            android:name=".Scheduling"
-            android:exported="true"/>
+
         <activity
             android:name=".notfications"
             android:exported="true" />
-
-
-
         <activity
             android:name=".Add_Attendee"
             android:exported="true" />
-
-
-
-        <activity
-            android:name=".Resetpass"
-            android:exported="true" />
-
         <activity
             android:name=".Logfile"
             android:exported="true" />
-
         <activity
             android:name=".Home"
             android:exported="true" />
 
         <activity
-            android:name=".Profile"
+            android:name=".Attendence_tracking"
             android:exported="true" />
-
+        <activity
+            android:name=".SignUp"
+            android:exported="true" />
         <activity
             android:name=".SignInActivity"
             android:exported="true" />
 
+
         <activity
-            android:name=".SignUp"
+            android:name=".forgetpassword"
+            android:exported="true"/>
+        <activity
+            android:name=".Resetpass"
+            android:exported="true"/>
+        <activity
+            android:name=".verfication"
             android:exported="true" />
-
         <activity
-            android:name=".Attendence_tracking"
-            android:exported="true">
-
-
-
-        <intent-filter>
+            android:name=".Profile"
+            android:exported="true"/>
+        <activity
+            android:name=".Scheduling"
+            android:exported="true" >
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -90,7 +85,6 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".Token"
             android:exported="true" />

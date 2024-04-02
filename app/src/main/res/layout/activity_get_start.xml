@@ -24,21 +24,18 @@
 
     <TextView
         android:id="@+id/welcome_to_"
-        android:layout_width="289dp"
-        android:layout_height="54dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="472dp"
         android:fontFamily="@font/poppins_bold"
-        android:gravity="top"
-        android:lineSpacingExtra="6sp"
-        android:text="@string/welcome_to_"
-        android:textAppearance="@style/welcome_to_"
-        android:translationY="-2.82sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.778"
+        android:text="Welcome to AttendEase App"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
+        app:layout_constraintEnd_toEndOf="parent" />
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
