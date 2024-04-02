@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     tools:context=".Profile"
     android:background="#EFEBEB"
@@ -27,7 +27,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="622dp">
+        android:layout_height="652dp">
 
         <ImageView
             android:id="@+id/male_user_ek1"
@@ -117,8 +117,8 @@
                 android:id="@+id/svebutton"
                 android:layout_width="148dp"
                 android:layout_height="match_parent"
-                android:background="@drawable/btn"
                 android:layout_gravity="center_horizontal"
+                android:background="@drawable/btn"
                 android:minHeight="48dp"
                 android:text="Save"
                 android:textColor="#F5F5F5"
@@ -132,11 +132,11 @@
             android:id="@+id/changepass"
             android:layout_width="284dp"
             android:layout_height="59dp"
+            android:layout_centerHorizontal="true"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="450dp"
             android:backgroundTint="#1E9090"
             android:fontFamily="@font/poppins_bold"
-            android:layout_centerHorizontal="true"
             android:text="Change Password"
             android:textAlignment="center"
             android:textSize="20sp"

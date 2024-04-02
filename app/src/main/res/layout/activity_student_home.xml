@@ -68,18 +68,6 @@
 
 
 
-            <Button
-                android:background="@drawable/btn"
-                android:layout_gravity="center"
-                android:layout_width="326dp"
-                android:layout_height="65dp"
-                android:layout_marginBottom="15dp"
-                android:layout_marginTop="40dp"
-                android:gravity="center"
-                android:text="Schedule New Meeting"
-                android:textColor="#F5F5F5"
-                android:textSize="24dp"
-                android:textStyle="normal|bold"></Button>
 
             <Button
                 android:background="@drawable/btn"
@@ -87,6 +75,7 @@
                 android:layout_width="326dp"
                 android:layout_height="65dp"
                 android:layout_marginBottom="15dp"
+                android:layout_marginTop="45dp"
                 android:text="My Upcoming Meetings"
                 android:textColor="#F5F5F5"
                 android:textStyle="normal|bold"
@@ -94,18 +83,7 @@
                 android:textSize="24dp">
             </Button>
 
-            <Button
-                android:background="@drawable/btn"
-                android:layout_gravity="center"
-                android:layout_width="326dp"
-                android:layout_height="65dp"
-                android:layout_marginBottom="15dp"
-                android:text="My Planned Meetings"
-                android:textColor="#F5F5F5"
-                android:textStyle="normal|bold"
-                android:gravity="center"
-                android:textSize="24dp">
-            </Button>
+
 
             <Button
                 android:background="@drawable/btn"

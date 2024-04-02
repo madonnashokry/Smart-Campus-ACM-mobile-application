@@ -68,25 +68,24 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Middle Name"
-                    android:textSize="17sp"
+                    android:text="ID"
+                    android:textSize="17dp"
                     android:textColor="#000000"
                     android:fontFamily="@font/poppins_bold" />
 
                 <EditText
-                    android:id="@+id/sign_up_username"
+                    android:id="@+id/ID"
                     android:layout_width="match_parent"
-                    android:layout_height="53dp"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/rounded_textbox"
                     android:ems="10"
                     android:drawablePadding="10dp"
-                    android:hint="Enter your First Name"
-                    android:inputType="textPersonName|textEmailAddress"
+                    android:hint="Enter your University ID"
+                    android:inputType="textEmailAddress"
                     android:paddingLeft="20dp"
                     android:textColorHint="@color/dark_grey"
                     android:textSize="18sp" />
             </LinearLayout>
-
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -98,14 +97,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="First Name"
-                    android:textSize="17sp"
+                    android:textSize="17dp"
                     android:textColor="#000000"
                     android:fontFamily="@font/poppins_bold" />
 
                 <EditText
                     android:id="@+id/sign_up_username"
                     android:layout_width="match_parent"
-                    android:layout_height="53dp"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/rounded_textbox"
                     android:ems="10"
                     android:drawablePadding="10dp"
@@ -116,69 +115,66 @@
                     android:textSize="18sp" />
             </LinearLayout>
 
-            <!-- Adjusted space between EditText and TextView -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="20dp"
                 android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Email"
-                    android:textSize="17sp"
+                    android:text="Middle Name"
+                    android:textSize="17dp"
                     android:textColor="#000000"
                     android:fontFamily="@font/poppins_bold" />
 
                 <EditText
-                    android:id="@+id/sign_up_email"
+                    android:id="@+id/middle_name"
                     android:layout_width="match_parent"
-                    android:layout_height="53dp"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/rounded_textbox"
                     android:ems="10"
                     android:drawablePadding="10dp"
-                    android:hint="Enter your E-mail"
+                    android:hint="Enter your Middle Name"
                     android:inputType="textPersonName|textEmailAddress"
                     android:paddingLeft="20dp"
                     android:textColorHint="@color/dark_grey"
                     android:textSize="18sp" />
             </LinearLayout>
 
-            <!-- Adjusted space between EditText and TextView -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="20dp"
                 android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="ID"
-                    android:textSize="17sp"
+                    android:text="Last Name"
+                    android:textSize="17dp"
                     android:textColor="#000000"
                     android:fontFamily="@font/poppins_bold" />
 
                 <EditText
-                    android:id="@+id/ID"
+                    android:id="@+id/last_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/rounded_textbox"
                     android:ems="10"
                     android:drawablePadding="10dp"
-                    android:hint="Enter your UniverstyID"
-                    android:inputType="textEmailAddress"
+                    android:hint="Enter your Last Name"
+                    android:inputType="textPersonName|textEmailAddress"
                     android:paddingLeft="20dp"
                     android:textColorHint="@color/dark_grey"
                     android:textSize="18sp" />
             </LinearLayout>
 
-            <!-- Adjusted space between EditText and TextView -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="20dp"
                 android:orientation="vertical">
 
                 <TextView
@@ -200,14 +196,41 @@
                     android:inputType="textEmailAddress"
                     android:paddingLeft="20dp"
                     android:textColorHint="@color/dark_grey"
-                    android:textSize="18sp" />
+                    android:textSize="18dp" />
             </LinearLayout>
 
-            <!-- Adjusted space between EditText and TextView -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Email"
+                    android:textSize="17dp"
+                    android:textColor="#000000"
+                    android:fontFamily="@font/poppins_bold" />
+
+                <EditText
+                    android:id="@+id/sign_up_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rounded_textbox"
+                    android:ems="10"
+                    android:drawablePadding="10dp"
+                    android:hint="Enter your Email"
+                    android:inputType="textPersonName|textEmailAddress"
+                    android:paddingLeft="20dp"
+                    android:textColorHint="@color/dark_grey"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 android:orientation="vertical">
 
                 <TextView
@@ -229,36 +252,35 @@
                     android:inputType="textEmailAddress"
                     android:paddingLeft="20dp"
                     android:textColorHint="@color/dark_grey"
-                    android:textSize="18sp" />
+                    android:textSize="18dp" />
             </LinearLayout>
 
-            <!-- Adjusted space between EditText and TextView -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="20dp"
                 android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Confirm Password"
+                    android:text="Role"
                     android:textSize="17sp"
                     android:textColor="#000000"
                     android:fontFamily="@font/poppins_bold" />
 
                 <EditText
-                    android:id="@+id/confpass"
+                    android:id="@+id/role"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/rounded_textbox"
                     android:ems="10"
                     android:drawablePadding="10dp"
-                    android:hint="Confirm password"
+                    android:hint="Enter your role"
                     android:inputType="textEmailAddress"
                     android:paddingLeft="20dp"
                     android:textColorHint="@color/dark_grey"
-                    android:textSize="18sp" />
+                    android:textSize="18dp" />
             </LinearLayout>
 
             <!-- Adjusted margin for Sign In Button -->
@@ -269,16 +291,17 @@
                 android:layout_marginTop="20dp"
                 android:backgroundTint="#1E9090"
                 android:fontFamily="@font/poppins_bold"
-                android:text="Sign in"
+                android:text="Sign Up"
                 android:textAlignment="center"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:textSize="20sp"
+                android:textSize="20dp"
+                android:textStyle="normal"
                 app:cornerRadius="?attr/listPreferredItemHeightLarge"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.494"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/confpass" />
+                app:layout_constraintTop_toBottomOf="@id/role" />
 
         </LinearLayout>
     </ScrollView>

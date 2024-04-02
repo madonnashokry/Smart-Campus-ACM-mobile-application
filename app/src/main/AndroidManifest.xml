@@ -20,7 +20,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SmartCampusACM"
         tools:targetApi="31">
-
+        <activity
+            android:name=".student_home"
+            android:exported="false" />
         <activity
             android:name=".Planned_Meetings"
             android:exported="true" />
@@ -30,18 +32,15 @@
         <activity
             android:name=".upcoming_meetings"
             android:exported="true" />
-
         <activity
             android:name=".notfications"
             android:exported="true" />
-
         <activity
             android:name=".Logfile"
             android:exported="true" />
         <activity
             android:name=".Home"
             android:exported="true" />
-
         <activity
             android:name=".Attendence_tracking"
             android:exported="true" />
@@ -51,28 +50,24 @@
         <activity
             android:name=".SignInActivity"
             android:exported="true" />
-
-
         <activity
             android:name=".forgetpassword"
-            android:exported="true"/>
+            android:exported="true" />
         <activity
             android:name=".Resetpass"
-            android:exported="true"/>
+            android:exported="true" />
         <activity
             android:name=".verfication"
             android:exported="true" />
         <activity
             android:name=".Profile"
-            android:exported="true"/>
+            android:exported="true" />
         <activity
             android:name=".Scheduling"
-            android:exported="true"/>
+            android:exported="true" />
         <activity
             android:name=".Add_Attendee"
-            android:exported="true" >
-
-
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

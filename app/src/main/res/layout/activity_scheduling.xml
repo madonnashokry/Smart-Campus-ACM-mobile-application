@@ -19,6 +19,19 @@
         android:text="Schedule New Meeting" />
 
     <EditText
+        android:id="@+id/editTextText4"
+        android:layout_width="360dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        android:text="Date:"
+        android:textColor="#626A6A"
+        android:textStyle="normal|bold"
+        android:layout_marginTop="25dp"
+        android:layout_gravity="center"
+        android:minHeight="48dp"/>
+
+    <EditText
         android:id="@+id/editTextText"
         android:layout_width="360dp"
         android:layout_height="wrap_content"
@@ -57,18 +70,7 @@
         android:layout_gravity="center"
         android:minHeight="48dp"/>
 
-    <EditText
-        android:id="@+id/editTextText4"
-        android:layout_width="360dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="text"
-        android:text="Date:"
-        android:textColor="#626A6A"
-        android:textStyle="normal|bold"
-        android:layout_marginTop="25dp"
-        android:layout_gravity="center"
-        android:minHeight="48dp"/>
+
 
     <EditText
         android:id="@+id/editTextText5"
@@ -104,6 +106,7 @@
         android:ems="10"
         android:inputType="text"
         android:text="Subject"
+        android:textSize="20dp"
         android:textColor="#626A6A"
         android:textStyle="normal|bold"
         android:layout_marginTop="25dp"
