@@ -1,14 +1,12 @@
 package com.campus.acm;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import android.content.Intent;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class GetStart extends AppCompatActivity {
 
@@ -24,7 +22,7 @@ public class GetStart extends AppCompatActivity {
 
             getStarted.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View view) {
-                    Intent getstart = new Intent(GetStart.this,SignInActivity.class);
+                    Intent getstart = new Intent(GetStart.this,SignUp.class);
                     startActivity(getstart);
                 }
             });

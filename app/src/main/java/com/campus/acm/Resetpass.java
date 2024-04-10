@@ -4,14 +4,13 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.ViewFlipper;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class Resetpass extends AppCompatActivity {
 
 
-    ViewFlipper ViewFlipper;
+    //ViewFlipper ViewFlipper;
     EditText EmailEditText;
     EditText VerificationCode;
     EditText NewPassword;

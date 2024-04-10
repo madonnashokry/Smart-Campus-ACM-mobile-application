@@ -51,7 +51,7 @@
         android:ems="10"
         android:focusableInTouchMode="true"
         android:hint="Enter your Email"
-        android:inputType="textPassword"
+
         android:paddingLeft="20dp"
         android:textColorHint="@color/dark_grey"
         android:textSize="18sp"

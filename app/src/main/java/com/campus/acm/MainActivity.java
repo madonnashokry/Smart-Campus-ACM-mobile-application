@@ -1,18 +1,18 @@
 package com.campus.acm;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        Intent token_intent = new Intent(this, Token.class);
-        startActivity(token_intent);
+        setContentView(R.layout.activity_main);
+        Intent  ACTV= new Intent(MainActivity.this, GetStart.class);
+        startActivity(ACTV);
 
 
 
