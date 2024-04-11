@@ -1,24 +1,36 @@
 package com.campus.acm;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 public class student_home extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
+       // EdgeToEdge.enable(this);
         setContentView(R.layout.activity_student_home);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
+        // Initialize buttons
+        Button upcomingMeetingsButton = findViewById(R.id.upcoming);
+        Button previousMeetingsButton = findViewById(R.id.pervv);
+
+        // Set click listeners
+        upcomingMeetingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(student_home.this, upcoming_meetings.class));
+            }
+        });
+
+        previousMeetingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(student_home.this, Previous_Meetings.class));
+            }
         });
     }
-}
+    }
