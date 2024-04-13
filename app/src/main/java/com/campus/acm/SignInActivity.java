@@ -2,6 +2,7 @@ package com.campus.acm;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -115,17 +116,17 @@ public class SignInActivity extends AppCompatActivity {
                 // Handle successful response
                 String responseBody = response.body().string();
 
-                // response is  JSON object, parse it
+                // Assuming the response is a JSON object, parse it
                 try {
                     JSONObject jsonResponse = new JSONObject(responseBody);
-                   // String access_token = jsonResponse.getString("access_token");
-                   // Log.d("FetchUserDetails", "Access Token: " + access_token);
+                    String access_token = jsonResponse.getString("access_token");
+                    Log.d("FetchUserDetails", "Access Token: " + access_token);
                     //if login is success
                     runOnUiThread(() -> Toast.makeText(SignInActivity.this, "Login successful.", Toast.LENGTH_SHORT).show());
-                    Intent intent = new Intent(SignInActivity.this, student_home.class);
+                    //Intent intent = new Intent(SignInActivity.this, student_home.class);
                     //intent.putExtra("access_token", accessToken);
-                    startActivity(intent);
-                 //   fetchUserDetails(access_token);
+                    //startActivity(intent);
+                    fetchUserDetails(access_token);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -135,7 +136,61 @@ public class SignInActivity extends AppCompatActivity {
         });
     }
 
+    public void fetchUserDetails(String access_token) {
+        OkHttpClient client = new OkHttpClient();
 
+        Request request = new Request.Builder()
+                .url("http://90.84.199.65:8000/user/info")
+                .addHeader("Authorization", "Bearer " + access_token)
+                .addHeader("Content-Type", "application/json")
+                .build();
+        Log.d("FetchUserDetails", "Request URL: " + request.url());
+        Log.d("FetchUserDetails", "Request Headers: " + request.headers());
+
+        client.newCall(request).enqueue(new okhttp3.Callback() {
+            @Override
+            public void onFailure(okhttp3.Call call, IOException e) {
+                e.printStackTrace();
+                runOnUiThread(() -> Toast.makeText(SignInActivity.this, "Error fetching user details: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+            }
+
+            @Override
+            public void onResponse(okhttp3.Call call, Response response) throws IOException {
+                Log.d("FetchUserDetails", "Response Code: " + response.code());
+                if (!response.isSuccessful()) {
+                    String errorBody = response.body() != null ? response.body().string() : "No error body";
+                    Log.e("FetchUserDetails", "Error Response Code: " + response.code());
+                    Log.e("FetchUserDetails", "Error Response Body: " + errorBody);
+                    runOnUiThread(() -> Toast.makeText(SignInActivity.this, "Failed to fetch user details", Toast.LENGTH_SHORT).show());
+                    return;
+                }
+                // Store the response body in a variable
+                String responseBody = response.body().string();
+                Log.d("FetchUserDetails", "Response Body: " + responseBody);
+                try {
+                    JSONObject jsonResponse = new JSONObject(responseBody);
+                    String role = jsonResponse.getString("role");
+                    runOnUiThread(() -> Toast.makeText(SignInActivity.this, "role: " + role, Toast.LENGTH_SHORT).show());
+
+                    // Redirect based on the user's role
+                    Intent intent;
+                    if ("student".equalsIgnoreCase(role)) {
+                        intent = new Intent(SignInActivity.this, student_home.class);
+                    } else if ("staff".equalsIgnoreCase(role)) {
+                        intent = new Intent(SignInActivity.this, Home.class);
+                    } else {
+                        runOnUiThread(() -> Toast.makeText(SignInActivity.this, "Unknown user role", Toast.LENGTH_SHORT).show());
+                        return;
+                    }
+
+                    startActivity(intent);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    runOnUiThread(() -> Toast.makeText(SignInActivity.this, "Error parsing user details JSON.", Toast.LENGTH_SHORT).show());
+                }
+            }
+        });
+    }
 
 
 
