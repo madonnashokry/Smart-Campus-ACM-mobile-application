@@ -33,7 +33,7 @@ public class Previous_Meetings extends AppCompatActivity {
     }
    // fetchPreviousMeetings();
 
-     /*
+    /*
     private void fetchPreviousMeetings() {
         OkHttpClient client = new OkHttpClient();
 
@@ -78,7 +78,8 @@ public class Previous_Meetings extends AppCompatActivity {
         Type listType = new TypeToken<List<Events>>(){}.getType();
         return gson.fromJson(responseBody, listType);
     }
-*/
+
+     */
 
 }
 
