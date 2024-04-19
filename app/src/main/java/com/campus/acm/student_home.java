@@ -3,9 +3,9 @@ package com.campus.acm;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 
 public class student_home extends AppCompatActivity {
 
@@ -15,8 +15,8 @@ public class student_home extends AppCompatActivity {
        // EdgeToEdge.enable(this);
         setContentView(R.layout.activity_student_home);
         // Initialize buttons
-        Button upcomingMeetingsButton = findViewById(R.id.upcoming);
-        Button previousMeetingsButton = findViewById(R.id.pervv);
+        AppCompatButton upcomingMeetingsButton = findViewById(R.id.upcoming);
+        AppCompatButton previousMeetingsButton = findViewById(R.id.pervv);
 
         // Set click listeners
         upcomingMeetingsButton.setOnClickListener(new View.OnClickListener() {
