@@ -1,6 +1,7 @@
 package com.campus.acm;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -121,12 +122,18 @@ public class SignInActivity extends AppCompatActivity {
                     JSONObject jsonResponse = new JSONObject(responseBody);
                     String access_token = jsonResponse.getString("access_token");
                     Log.d("FetchUserDetails", "Access Token: " + access_token);
+                    SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("access_token", access_token);
+                    editor.apply();
+                    //Log.d("FetchUserDetails", "Access Token: " + access_token);
+
                     //if login is success
                     runOnUiThread(() -> Toast.makeText(SignInActivity.this, "Login successful.", Toast.LENGTH_SHORT).show());
                     //Intent intent = new Intent(SignInActivity.this, student_home.class);
                     //intent.putExtra("access_token", accessToken);
                     //startActivity(intent);
-                    fetchUserDetails(access_token);
+                    fetchUserDetails();
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -136,16 +143,18 @@ public class SignInActivity extends AppCompatActivity {
         });
     }
 
-    public void fetchUserDetails(String access_token) {
+    public void fetchUserDetails() {
+        // Retrieve the access token from shared preferences
+        SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences", MODE_PRIVATE);
+        String accessToken = sharedPreferences.getString("access_token", "");
+
         OkHttpClient client = new OkHttpClient();
 
         Request request = new Request.Builder()
                 .url("http://90.84.199.65:8000/user/info")
-                .addHeader("Authorization", "Bearer " + access_token)
+                .addHeader("Authorization", "Bearer " + accessToken)
                 .addHeader("Content-Type", "application/json")
                 .build();
-        Log.d("FetchUserDetails", "Request URL: " + request.url());
-        Log.d("FetchUserDetails", "Request Headers: " + request.headers());
 
         client.newCall(request).enqueue(new okhttp3.Callback() {
             @Override
@@ -156,21 +165,15 @@ public class SignInActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(okhttp3.Call call, Response response) throws IOException {
-                Log.d("FetchUserDetails", "Response Code: " + response.code());
                 if (!response.isSuccessful()) {
-                    String errorBody = response.body() != null ? response.body().string() : "No error body";
-                    Log.e("FetchUserDetails", "Error Response Code: " + response.code());
-                    Log.e("FetchUserDetails", "Error Response Body: " + errorBody);
                     runOnUiThread(() -> Toast.makeText(SignInActivity.this, "Failed to fetch user details", Toast.LENGTH_SHORT).show());
                     return;
                 }
-                // Store the response body in a variable
+
                 String responseBody = response.body().string();
-                Log.d("FetchUserDetails", "Response Body: " + responseBody);
                 try {
                     JSONObject jsonResponse = new JSONObject(responseBody);
                     String role = jsonResponse.getString("role");
-                    runOnUiThread(() -> Toast.makeText(SignInActivity.this, "role: " + role, Toast.LENGTH_SHORT).show());
 
                     // Redirect based on the user's role
                     Intent intent;
@@ -191,6 +194,7 @@ public class SignInActivity extends AppCompatActivity {
             }
         });
     }
+
 
 
 

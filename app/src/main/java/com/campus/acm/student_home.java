@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,7 +18,16 @@ public class student_home extends AppCompatActivity {
         // Initialize buttons
         Button upcomingMeetingsButton = findViewById(R.id.upcoming);
         Button previousMeetingsButton = findViewById(R.id.pervv);
+        ImageButton profilee = findViewById(R.id.male_user);
 
+
+        profilee.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intt = new Intent(student_home.this, Profile.class);
+                startActivity(intt);
+            }
+        });
         // Set click listeners
         upcomingMeetingsButton.setOnClickListener(new View.OnClickListener() {
             @Override

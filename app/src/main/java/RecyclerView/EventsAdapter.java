@@ -68,6 +68,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.MeetingVie
         return dateFormat.format(date);
     }
 
+
     private String formatTime(Date time) {
         SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a");
         return timeFormat.format(time);

@@ -10,7 +10,7 @@
     android:orientation="horizontal"
     >
 
-    <ImageView
+    <ImageButton
         android:id="@+id/male_user"
         android:layout_width="40dp"
         android:layout_height="40dp"
