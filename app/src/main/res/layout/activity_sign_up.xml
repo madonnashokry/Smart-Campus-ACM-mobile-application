@@ -4,23 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fitsSystemWindows="true"
     tools:context=".SignUp">
 
     <ScrollView
-        android:layout_width="410dp"
-        android:layout_height="729dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        >
 
         <LinearLayout
-            android:layout_width="413dp"
-            android:layout_height="731dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:orientation="vertical"
-            android:padding="16dp"
             android:gravity="center_horizontal"
             tools:ignore="MissingConstraints"
             tools:layout_editor_absoluteX="-2dp">
@@ -28,13 +28,12 @@
             <RelativeLayout
                 android:id="@+id/shape"
                 android:layout_width="wrap_content"
-                android:layout_height="211dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="-48dp"
-                android:layout_marginTop="-85dp">
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                >
 
                 <ImageView
+                    android:id="@+id/image_ellipse"
                     android:layout_width="111dp"
                     android:layout_height="149dp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -46,9 +45,9 @@
                     app:srcCompat="@drawable/ellipse" />
 
                 <ImageView
-                    android:layout_width="219dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginRight="50dp"
+                    android:id="@+id/image_ellipsee"
+                    android:layout_width="172dp"
+                    android:layout_height="122dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.071"
@@ -56,41 +55,17 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.0"
                     app:srcCompat="@drawable/ellipsee" />
+
             </RelativeLayout>
 
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="ID"
-                    android:textSize="17dp"
-                    android:textColor="#000000"
-                    android:fontFamily="@font/poppins_bold" />
-
-                <EditText
-                    android:id="@+id/ID"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/rounded_textbox"
-                    android:ems="10"
-                    android:drawablePadding="10dp"
-                    android:hint="Enter your University ID"
-                    android:inputType="textEmailAddress"
-                    android:paddingLeft="20dp"
-                    android:textColorHint="@color/dark_grey"
-                    android:textSize="18sp" />
-            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+
+                android:padding="16dp"
                 android:orientation="vertical">
 
                 <TextView
@@ -104,21 +79,22 @@
                 <EditText
                     android:id="@+id/sign_up_username"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/rounded_textbox"
+                    android:layout_height="50dp"
+                    android:background="@drawable/edit_text_pg"
                     android:ems="10"
                     android:drawablePadding="10dp"
-                    android:hint="Enter your First Name"
+                    android:hint="Enter your first name"
                     android:inputType="textPersonName|textEmailAddress"
                     android:paddingLeft="20dp"
-                    android:textColorHint="@color/dark_grey"
+                    android:textColorHint="#AFADAF"
+                    android:textColor="#454343"
                     android:textSize="18sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:padding="16dp"
                 android:orientation="vertical">
 
                 <TextView
@@ -132,21 +108,23 @@
                 <EditText
                     android:id="@+id/middle_name"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/rounded_textbox"
+                    android:layout_height="50dp"
+                    android:background="@drawable/edit_text_pg"
                     android:ems="10"
                     android:drawablePadding="10dp"
-                    android:hint="Enter your Middle Name"
+                    android:hint="Enter your middle name"
                     android:inputType="textPersonName|textEmailAddress"
                     android:paddingLeft="20dp"
-                    android:textColorHint="@color/dark_grey"
+                    android:textColorHint="#AFADAF"
+                    android:textColor="#454343"
                     android:textSize="18sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+
+                android:padding="16dp"
                 android:orientation="vertical">
 
                 <TextView
@@ -160,21 +138,23 @@
                 <EditText
                     android:id="@+id/last_name"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/rounded_textbox"
+                    android:layout_height="50dp"
+                    android:background="@drawable/edit_text_pg"
                     android:ems="10"
                     android:drawablePadding="10dp"
-                    android:hint="Enter your Last Name"
+                    android:hint="Enter your last name"
                     android:inputType="textPersonName|textEmailAddress"
                     android:paddingLeft="20dp"
-                    android:textColorHint="@color/dark_grey"
+                    android:textColorHint="#AFADAF"
+                    android:textColor="#454343"
                     android:textSize="18sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+
+                android:padding="16dp"
                 android:orientation="vertical">
 
                 <TextView
@@ -188,21 +168,23 @@
                 <EditText
                     android:id="@+id/SSN"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/rounded_textbox"
+                    android:layout_height="50dp"
+                    android:background="@drawable/edit_text_pg"
                     android:ems="10"
                     android:drawablePadding="10dp"
                     android:hint="Enter your SSN"
                     android:inputType="textEmailAddress"
                     android:paddingLeft="20dp"
-                    android:textColorHint="@color/dark_grey"
+                    android:textColorHint="#AFADAF"
+                    android:textColor="#454343"
                     android:textSize="18dp" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+
+                android:padding="16dp"
                 android:orientation="vertical">
 
                 <TextView
@@ -216,21 +198,23 @@
                 <EditText
                     android:id="@+id/sign_up_email"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/rounded_textbox"
+                    android:layout_height="50dp"
+                    android:background="@drawable/edit_text_pg"
                     android:ems="10"
                     android:drawablePadding="10dp"
-                    android:hint="Enter your Email"
+                    android:hint="Enter your E-mail"
                     android:inputType="textPersonName|textEmailAddress"
                     android:paddingLeft="20dp"
-                    android:textColorHint="@color/dark_grey"
+                    android:textColorHint="#AFADAF"
+                    android:textColor="#454343"
                     android:textSize="18sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+
+                android:padding="16dp"
                 android:orientation="vertical">
 
                 <TextView
@@ -244,25 +228,26 @@
                 <EditText
                     android:id="@+id/pass"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/rounded_textbox"
+                    android:layout_height="50dp"
+                    android:background="@drawable/edit_text_pg"
                     android:ems="10"
                     android:drawablePadding="10dp"
                     android:hint="Enter your password"
                     android:inputType="textEmailAddress"
                     android:paddingLeft="20dp"
-                    android:textColorHint="@color/dark_grey"
+                    android:textColorHint="#AFADAF"
+                    android:textColor="#454343"
                     android:textSize="18dp" />
             </LinearLayout>
-
 
 
             <!-- Adjusted margin for Sign In Button -->
             <Button
                 android:id="@+id/login_btn"
-                android:layout_width="348dp"
+                android:layout_width="match_parent"
                 android:layout_height="62dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginVertical="10dp"
+                android:layout_marginHorizontal="30dp"
                 android:backgroundTint="#1E9090"
                 android:fontFamily="@font/poppins_bold"
                 android:text="Sign Up"
