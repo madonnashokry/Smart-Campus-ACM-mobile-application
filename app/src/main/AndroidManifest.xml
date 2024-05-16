@@ -43,9 +43,7 @@
             android:name=".Home"
             android:exported="true" />
 
-        <activity
-            android:name=".Attendence_tracking"
-            android:exported="true" />
+
         <activity
             android:name=".SignUp"
             android:exported="true" />
@@ -75,18 +73,28 @@
             android:exported="true"/>
 
 
-        <activity
-            android:name=".MainActivity"
-            android:exported="true"/>
 
         <activity
             android:name=".Previous_Meetings"
             android:exported="true" />
         <activity
             android:name=".SignInActivity"
-            android:exported="true" >
+            android:exported="true" />
+        <activity
+            android:name=".GetStart"
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize"/>
 
-            <intent-filter>
+
+
+        <activity
+            android:name=".Attendence_tracking"
+            android:exported="true" />
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+        <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>

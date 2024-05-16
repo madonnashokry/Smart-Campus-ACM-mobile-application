@@ -31,6 +31,7 @@ public class SignInActivity extends AppCompatActivity {
     private static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
     Button forgetpass;
 
+    private String Email;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +46,13 @@ public class SignInActivity extends AppCompatActivity {
 
         Password = findViewById(R.id.sign_in_password);
 
+        signup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent inte = new Intent(SignInActivity.this, SignUp.class);
+                startActivity(inte);
+            }
+        });
 
         forgetpass.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -174,6 +182,7 @@ public class SignInActivity extends AppCompatActivity {
                 try {
                     JSONObject jsonResponse = new JSONObject(responseBody);
                     String role = jsonResponse.getString("role");
+                    String email = jsonResponse.getString("email");
 
                     // Redirect based on the user's role
                     Intent intent;
@@ -185,6 +194,8 @@ public class SignInActivity extends AppCompatActivity {
                         runOnUiThread(() -> Toast.makeText(SignInActivity.this, "Unknown user role", Toast.LENGTH_SHORT).show());
                         return;
                     }
+                    // Pass the email address to the verification activity
+                    intent.putExtra("email", email);
 
                     startActivity(intent);
                 } catch (JSONException e) {

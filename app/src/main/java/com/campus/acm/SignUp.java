@@ -63,7 +63,7 @@ public class SignUp extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Sign up failed: Error sending request", Toast.LENGTH_SHORT).show();
                 }
 
-                Intent i = new Intent(SignUp.this, SignInActivity.class);
+                Intent i = new Intent(SignUp.this, verfication.class);
                 startActivity(i);
             }
         });

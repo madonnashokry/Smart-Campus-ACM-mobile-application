@@ -20,7 +20,7 @@ public class JwtUtil {
             JSONObject jsonPayload = new JSONObject(payload);
 
             // Extract the user ID from the payload
-            String userId = jsonPayload.getString("userId"); // Adjust the key as per your token's payload
+            String userId = jsonPayload.getString("userId");
 
             return userId;
         } catch (Exception e) {

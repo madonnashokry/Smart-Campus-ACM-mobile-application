@@ -11,6 +11,15 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
 public class Profile extends AppCompatActivity {
     private TextView profileText;
     private EditText firstNameEditText;
@@ -37,7 +46,7 @@ public class Profile extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+               // fetchUserDetailsById();
                 Toast.makeText( Profile.this, "Your data is set successfully", Toast.LENGTH_SHORT).show();
             }
         });
@@ -54,7 +63,7 @@ public class Profile extends AppCompatActivity {
         String userId = sharedPreferences.getString("user_id", "");
 
 }
-/*
+
     public void fetchUserDetailsById(String userId) {
         SharedPreferences sharedPreferenc = getSharedPreferences("sharedPreferences", MODE_PRIVATE);
         String access_token = sharedPreferenc.getString("acess_token", "");
@@ -87,7 +96,7 @@ public class Profile extends AppCompatActivity {
                     JSONObject jsonResponse = new JSONObject(responseBody);
                     // Assuming the response contains user details like first name, last name, etc.
                     String firstName = jsonResponse.getString("first_name");
-                    String username = jsonResponse.getString()
+                    //String username = jsonResponse.getString()
                     String lastName = jsonResponse.getString("last_name");
                     // Update UI elements with user details
                     runOnUiThread(() -> {
@@ -102,6 +111,6 @@ public class Profile extends AppCompatActivity {
         });
     }
 
-*/
+
 
 }
