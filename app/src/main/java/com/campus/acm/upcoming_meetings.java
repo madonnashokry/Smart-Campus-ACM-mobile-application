@@ -1,6 +1,8 @@
 package com.campus.acm;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,7 +15,6 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import RecyclerView.EventsAdapter;
@@ -25,86 +26,92 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class upcoming_meetings extends AppCompatActivity {
-    RecyclerView recyclerView;
+    private RecyclerView recyclerView;
     private EventsAdapter eventAdapter;
-    private List<Events> UPcoming_eventList;
-    private List<Events> eventList;
+    private List<Events> upcomingEventList;
+    private OkHttpClient client;
+    private Gson gson;
+    private String accessToken;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //EdgeToEdge.enable(this);
         setContentView(R.layout.activity_upcoming_meetings);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences", MODE_PRIVATE);
+        accessToken = sharedPreferences.getString("access_token", "");
+
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        UPcoming_eventList = new ArrayList<>();
-        eventAdapter = new EventsAdapter(UPcoming_eventList);
+
+        upcomingEventList = new ArrayList<>();
+        eventAdapter = new EventsAdapter(upcomingEventList);
         recyclerView.setAdapter(eventAdapter);
+
+        client = new OkHttpClient();
+        gson = new Gson();
+
+        fetchUpcomingEvents();
     }
 
-
-
-    private void up_comingMeetings(String accessToken) {
-        OkHttpClient client = new OkHttpClient();
-        String url = "http://90.84.199.65:8000/user/upcoming-events";
+    private void fetchUpcomingEvents() {
 
         Request request = new Request.Builder()
-                .url(url)
+                .url("http://90.84.199.65:8000/user/upcoming-events")
                 .addHeader("Authorization", "Bearer " + accessToken)
                 .build();
 
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                e.printStackTrace();
-                runOnUiThread(() -> Toast.makeText(upcoming_meetings.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+                runOnUiThread(() -> {
+                    Toast.makeText(upcoming_meetings.this, "Failed to fetch upcoming events: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Log.e("upcoming_meetings", "onFailure: ", e);
+                });
             }
-
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 if (response.isSuccessful()) {
-                    if (response.code() == 204) {
-                        runOnUiThread(() -> Toast.makeText(upcoming_meetings.this, "Request processed successfully, but no new data is available.", Toast.LENGTH_SHORT).show());
-                    } else {
-                        String responseBody = response.body().string();
-                        if (responseBody != null && !responseBody.isEmpty()) {
-                            List<Events> futureEvents = parseJsonResponse(responseBody);
-                            runOnUiThread(() -> {
-                                eventList.clear();
-                                eventList.addAll(futureEvents);
-                                eventAdapter.notifyDataSetChanged();
-                            });
-                        } else {
-                            runOnUiThread(() -> Toast.makeText(upcoming_meetings.this, "No data available.", Toast.LENGTH_SHORT).show());
-                        }
+                    String responseBody = response.body().string();
+                    Log.d("upcoming_meetings", "Response: " + responseBody);
+
+                    if (responseBody.isEmpty()) {
+                        runOnUiThread(() -> {
+                            Toast.makeText(upcoming_meetings.this, "No upcoming events found.", Toast.LENGTH_SHORT).show();
+                            updateEvents(new ArrayList<>()); // Clear the list if response is empty
+                        });
+                        return;
+                    }
+
+                    try {
+                        Type eventType = new TypeToken<List<Events>>(){}.getType();
+                        List<Events> events = gson.fromJson(responseBody, eventType);
+
+                        runOnUiThread(() -> updateEvents(events));
+                    } catch (Exception e) {
+                        Log.e("upcoming_meetings", "Failed to parse response: ", e);
+                        runOnUiThread(() -> {
+                            Toast.makeText(upcoming_meetings.this, "Failed to parse events", Toast.LENGTH_SHORT).show();
+                        });
                     }
                 } else {
-                    runOnUiThread(() -> Toast.makeText(upcoming_meetings.this, "Failed to fetch previous meetings. Response code: " + response.code(), Toast.LENGTH_SHORT).show());
+                    runOnUiThread(() -> {
+                        Toast.makeText(upcoming_meetings.this, "Failed to fetch upcoming events: " + response.message(), Toast.LENGTH_SHORT).show();
+                        Log.e("upcoming_meetings", "Failed to fetch upcoming events: " + response.message());
+                    });
                 }
             }
-
         });
     }
 
-    private List<Events> parseJsonResponse(String responseBody) {
-        Gson gson = new Gson();
-        Type listType = new TypeToken<List<Events>>(){}.getType();
-        List<Events> allEvents = gson.fromJson(responseBody, listType);
-
-        // Filter out future events
-
-        List<Events> pastEvents = new ArrayList<>();
-        Date currentDate = new Date();
-
-        for (Events event : allEvents) {
-            Date eventDate = event.getDate(); // Assuming getDate() returns the event date as a Date
-            if (eventDate.after(currentDate)) {
-                pastEvents.add(event);
-            }
+    private void updateEvents(List<Events> events) {
+        if (events == null) {
+            Log.e("upcoming_meetings", "updateEvents: received null events list");
+            return;
         }
-
-        return pastEvents;
+        upcomingEventList.clear();
+        upcomingEventList.addAll(events);
+        eventAdapter.notifyDataSetChanged();
     }
-
 }

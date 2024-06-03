@@ -1,12 +1,14 @@
 package com.campus.acm;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -139,6 +141,7 @@ EditText CourseIDd;
             @Override
             public void onClick(View v) {
                 add_event();
+
             }
         });
     }
@@ -288,6 +291,24 @@ EditText CourseIDd;
         String organizerId = this.organizerId;
         String roomId = editTextRoomID.getText().toString();
 
+
+        Log.d("AddEvent", "Name: " + name);
+        Log.d("AddEvent", "Type: " + type);
+        Log.d("AddEvent", "Date: " + date);
+        Log.d("AddEvent", "Start Time: " + startTime);
+        Log.d("AddEvent", "End Time: " + endTime);
+        Log.d("AddEvent", "Course ID: " + courseId);
+        Log.d("AddEvent", "Room ID: " + roomId);
+
+
+        if (name.isEmpty() || type.isEmpty() || date.isEmpty() || startTime.isEmpty() || endTime.isEmpty() || courseId.isEmpty() || roomId.isEmpty()) {
+            Toast.makeText(Scheduling.this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
+
+            return;
+        }
+
+
+
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("name", name);
@@ -315,6 +336,7 @@ EditText CourseIDd;
             public void onFailure(Call call, IOException e) {
                 runOnUiThread(() -> {
                     Toast.makeText(Scheduling.this, "Request Failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Log.e("AddEvent", "Request Failed: " + e.getMessage());
                 });
             }
 
@@ -322,8 +344,26 @@ EditText CourseIDd;
             public void onResponse(Call call, Response response) throws IOException {
                 runOnUiThread(() -> {
                     if (response.isSuccessful()) {
-                        Toast.makeText(Scheduling.this, "Event Added Successfully!", Toast.LENGTH_SHORT).show();
+                        try {
+                            // Parse the response
+                            String responseBody = response.body().string();
+                            Log.d("AddEvent", "Response: " + responseBody);
+
+
+                            JSONObject responseJson = new JSONObject(responseBody);
+                            //String meetingId = responseJson.getString("id");
+                            //Log.d("AddEvent", "Meeting ID: " + meetingId);
+
+                            Toast.makeText(Scheduling.this, "Event Added Successfully! " , Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(Scheduling.this, Add_Attendee.class);
+                            intent.putExtra("course_name", subj.getText().toString());
+                            startActivity(intent);
+                        } catch (Exception e) {
+                            Log.e("AddEvent", "Failed to parse response: " + e.getMessage());
+                            Toast.makeText(Scheduling.this, "Failed to parse response: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
                     } else {
+                        Log.e("AddEvent", "Request Failed: " + response.message());
                         Toast.makeText(Scheduling.this, "Request Failed: " + response.message(), Toast.LENGTH_SHORT).show();
                     }
                 });

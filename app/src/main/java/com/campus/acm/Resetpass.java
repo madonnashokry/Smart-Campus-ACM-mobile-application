@@ -2,19 +2,23 @@ package com.campus.acm;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.IOException;
 
+import okhttp3.Call;
+import okhttp3.Callback;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class Resetpass extends AppCompatActivity {
 
@@ -24,9 +28,12 @@ public class Resetpass extends AppCompatActivity {
     EditText VerificationCode;
     EditText NewPassword;
     EditText ConfirmPassword;
-    TextView mErrorTextView;
+    //TextView mErrorTextView;
     Button contt;
 
+    private static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
+    OkHttpClient client = new OkHttpClient();
+    private static final String TAG = "Resetpass";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,58 +45,71 @@ public class Resetpass extends AppCompatActivity {
 
 
 
-        contt.setOnClickListener(new View.OnClickListener(){
 
+        contt.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View view) {
                 String newPassword = NewPassword.getText().toString();
                 String confirmPassword = ConfirmPassword.getText().toString();
 
                 if (newPassword.isEmpty() || confirmPassword.isEmpty()) {
-                    mErrorTextView.setText("Please fill in all fields.");
+                    Toast.makeText(Resetpass.this, "Please fill in all fields.", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 if (!newPassword.equals(confirmPassword)) {
-                    mErrorTextView.setText("Passwords do not match.");
+                    Toast.makeText(Resetpass.this, "Passwords do not match.", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                resetPassword(newPassword);
+                try {
+                    resetPassword(newPassword);
+                } catch (Exception e) {
+                    Log.e(TAG, "Error during password reset", e);
+                    Toast.makeText(Resetpass.this, "An error occurred while resetting the password.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
 
-
-
     private void resetPassword(String newPassword) {
-        OkHttpClient client = new OkHttpClient();
-
         SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences", MODE_PRIVATE);
-        String access_token = sharedPreferences.getString("access_token", "");
-        MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+        String accessToken = sharedPreferences.getString("access_token", "");
 
+        if (accessToken == null || accessToken.isEmpty()) {
+            runOnUiThread(() -> Toast.makeText(Resetpass.this, "No access token found. Please log in again.", Toast.LENGTH_SHORT).show());
+            return;
+        }
+
+        //String json = "{}";
+        String json = "{\"new_password\": \"" + newPassword + "\"}";
+
+
+        RequestBody body = RequestBody.create(json, JSON);
         Request request = new Request.Builder()
                 .url("http://90.84.199.65:8000/password-reset")
-                .patch(RequestBody.create("{}", JSON))
-                .addHeader("Authorization", "Bearer " + access_token)
+                .patch(body)
+                .addHeader("Authorization", "Bearer " + accessToken)
                 .build();
 
-        client.newCall(request).enqueue(new okhttp3.Callback() {
+        client.newCall(request).enqueue(new Callback() {
             @Override
-            public void onFailure(okhttp3.Call call, IOException e) {
-                e.printStackTrace();
-                runOnUiThread(() -> mErrorTextView.setText("error to reset password."));
+            public void onFailure(Call call, IOException e) {
+                Log.e(TAG, "Network request failed", e);
+                runOnUiThread(() -> Toast.makeText(Resetpass.this, "Error resetting password. Please check your network connection.", Toast.LENGTH_SHORT).show());
             }
 
             @Override
-            public void onResponse(okhttp3.Call call, okhttp3.Response response) throws IOException {
+            public void onResponse(Call call, Response response) throws IOException {
                 if (response.isSuccessful()) {
-                    runOnUiThread(() -> {
-                        mErrorTextView.setText("Password reset successful.");
-                        // Optionally, navigate to another activity or clear the fields
-                    });
+                    Log.i(TAG, "Password reset successful");
+                    runOnUiThread(() -> Toast.makeText(Resetpass.this, "Password reset successfully.", Toast.LENGTH_SHORT).show());
+                    // Optionally, navigate to another activity or clear the fields
                 } else {
-                    runOnUiThread(() -> mErrorTextView.setText("Failed to reset password. Please try again."));
+                    int responseCode = response.code();
+                    String responseBody = response.body() != null ? response.body().string() : "Unknown error";
+                    Log.e(TAG, "Failed to reset password. Error code: " + responseCode + ". Message: " + responseBody);
+                    runOnUiThread(() -> Toast.makeText(Resetpass.this, "Failed to reset password. Error code: " + responseCode + ". Message: " + responseBody, Toast.LENGTH_LONG).show());
                 }
             }
         });

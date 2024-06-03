@@ -14,11 +14,11 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import RecyclerView.EventsAdapter;
 import Session.Events;
+import Session.eventsfilter;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
@@ -30,24 +30,25 @@ public class Previous_Meetings extends AppCompatActivity {
     RecyclerView recyclerView;
     private EventsAdapter eventAdapter;
     private List<Events> eventList;
+    private List<Events> allEvents; // Store all events
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //EdgeToEdge.enable(this);
         setContentView(R.layout.activity_previous_meetings);
+
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
         eventList = new ArrayList<>();
         eventAdapter = new EventsAdapter(eventList);
         recyclerView.setAdapter(eventAdapter);
+
         SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences", MODE_PRIVATE);
         String access_token = sharedPreferences.getString("access_token", "");
-        //String accessToken = sharedPreferences.getString("access_token", "");
-        //fetchPreviousMeetings(access_token);
+
         fetchAllEvents(access_token);
     }
-
 
     private void fetchAllEvents(String access_token) {
         OkHttpClient client = new OkHttpClient();
@@ -73,8 +74,8 @@ public class Previous_Meetings extends AppCompatActivity {
                     String responseBody = response.body().string();
                     runOnUiThread(() -> {
                         Toast.makeText(Previous_Meetings.this, "Events fetched successfully.", Toast.LENGTH_SHORT).show();
-                        List<Events> allEvents = parseJsonResponse(responseBody);
-                        displayEventsInRecyclerView(allEvents);
+                        allEvents = parseJsonResponse(responseBody);
+                        displayPreviousEvents();
                     });
                 } else {
                     runOnUiThread(() -> Toast.makeText(Previous_Meetings.this, "Failed to fetch events. Response code: " + response.code(), Toast.LENGTH_SHORT).show());
@@ -83,19 +84,25 @@ public class Previous_Meetings extends AppCompatActivity {
         });
     }
 
-
-
-
     private List<Events> parseJsonResponse(String responseBody) {
         Gson gson = new Gson();
         Type listType = new TypeToken<List<Events>>() {}.getType();
         return gson.fromJson(responseBody, listType);
     }
+    private void displayAllEvents() {
+        eventList.clear();
+        eventList.addAll(allEvents);
+        eventAdapter.notifyDataSetChanged();
+    }
+    private void displayPreviousEvents() {
+        List<Events> previousEvents = eventsfilter.getPreviousEvents(allEvents);
+        eventList.clear();
+        eventList.addAll(previousEvents);
+        eventAdapter.notifyDataSetChanged();
+    }
 
 
-
-
-
+/*
     private void displayEventsInRecyclerView(List<Events> allEvents) {
         List<Events> previousEvents = new ArrayList<>();
         Date currentDate = new Date();
@@ -107,7 +114,7 @@ public class Previous_Meetings extends AppCompatActivity {
             }
         }
         eventList.clear();
-        eventList.addAll(allEvents);
+        eventList.addAll(previousEvents); // show only past events
         eventAdapter.notifyDataSetChanged();
     }
 

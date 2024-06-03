@@ -85,7 +85,9 @@
                 android:textStyle="normal|bold" />
 
             <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/cominggg"
                 android:background="@drawable/btn"
+
                 android:layout_gravity="center"
                 android:layout_width="320dp"
                 android:layout_marginHorizontal="30dp"
@@ -99,6 +101,7 @@
             </androidx.appcompat.widget.AppCompatButton>
 
             <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/planned"
                 android:background="@drawable/btn"
                 android:layout_gravity="center"
                 android:layout_width="320dp"
@@ -113,6 +116,7 @@
             </androidx.appcompat.widget.AppCompatButton>
 
             <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/previous"
                 android:background="@drawable/btn"
                 android:layout_width="320dp"
                 android:layout_marginHorizontal="30dp"

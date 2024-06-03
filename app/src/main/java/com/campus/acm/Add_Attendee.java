@@ -1,6 +1,8 @@
 package com.campus.acm;
 
 import android.app.Dialog;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -12,16 +14,30 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class Add_Attendee extends AppCompatActivity {
     TextView subj;
     TextView people;
     ArrayList<String> arrlist;
     ArrayList<String> arrpeople;
+    private OkHttpClient client = new OkHttpClient();
+    private String accessToken;
+    private static final String BASE_URL = "http://90.84.199.65:8000/course/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,24 +45,20 @@ public class Add_Attendee extends AppCompatActivity {
         setContentView(R.layout.activity_add_attendee);
 
         subj = findViewById(R.id.txt2);
-        arrlist = new ArrayList<>();
-        arrlist.add("algo");
-        arrlist.add("os");
-        arrlist.add("linux");
-        arrlist.add("nlp");
-        arrlist.add("embedded");
-        arrlist.add("DS");
-        arrlist.add("vision");
-        arrlist.add("animation");
-
         people = findViewById(R.id.txt4);
+        arrlist = new ArrayList<>();
         arrpeople = new ArrayList<>();
-        arrpeople.add("Madonna");
-        arrpeople.add("Rewan");
-        arrpeople.add("bassant");
-        arrpeople.add("yomna");
-        arrpeople.add("mariam");
-        arrpeople.add("sally");
+        SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences", MODE_PRIVATE);
+        accessToken = sharedPreferences.getString("access_token", "");
+
+        Intent intent = getIntent();
+        String courseName = intent.getStringExtra("course_name");
+        if (courseName != null) {
+            subj.setText(courseName);
+            fetchStudents(courseName);
+        }
+
+
 
         subj.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,6 +71,95 @@ public class Add_Attendee extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 showSearchSpinner(people, arrpeople, R.layout.dialog_search_spinner2);
+            }
+        });
+    }
+/*
+    private void fetchCourses() {
+        Request request = new Request.Builder()
+                .url(BASE_URL)
+                .addHeader("Authorization", "Bearer " + accessToken)
+                .addHeader("Content-Type", "application/json")
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                runOnUiThread(() -> {
+                    Toast.makeText(Add_Attendee.this, "Failed to fetch courses: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                });
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    String responseData = response.body().string();
+                    try {
+                        JSONArray jsonArray = new JSONArray(responseData);
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject courseObject = jsonArray.getJSONObject(i);
+                            String courseName = courseObject.getString("name");
+                            arrlist.add(courseName);
+                        }
+                        runOnUiThread(() -> {
+                            Toast.makeText(Add_Attendee.this, "Courses fetched successfully!", Toast.LENGTH_SHORT).show();
+                        });
+                    } catch (Exception e) {
+                        runOnUiThread(() -> {
+                            Toast.makeText(Add_Attendee.this, "Failed to parse courses: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        });
+                    }
+                } else {
+                    runOnUiThread(() -> {
+                        Toast.makeText(Add_Attendee.this, "Failed to fetch courses: " + response.message(), Toast.LENGTH_SHORT).show();
+                    });
+                }
+            }
+        });
+    }
+*/
+    private void fetchStudents(String courseName) {
+        String url = BASE_URL + courseName + "/students";
+        Request request = new Request.Builder()
+                .url(url)
+                .addHeader("Authorization", "Bearer " + accessToken)
+                .addHeader("Content-Type", "application/json")
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                runOnUiThread(() -> {
+                    Toast.makeText(Add_Attendee.this, "Failed to fetch students: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                });
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    try {
+                        String responseBody = response.body().string();
+                        JSONArray jsonArray = new JSONArray(responseBody);
+                        arrpeople.clear();
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject jsonObject = jsonArray.getJSONObject(i);
+                            String studentName = jsonObject.getString("name");
+                            arrpeople.add(studentName);
+                        }
+                        runOnUiThread(() -> {
+                            Toast.makeText(Add_Attendee.this, "Students fetched successfully!", Toast.LENGTH_SHORT).show();
+                        });
+                    } catch (Exception e) {
+                        runOnUiThread(() -> {
+                            Toast.makeText(Add_Attendee.this, "Failed to parse students: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        });
+                    }
+                } else {
+                    runOnUiThread(() -> {
+                        Toast.makeText(Add_Attendee.this, "Failed to fetch students: " + response.message(), Toast.LENGTH_SHORT).show();
+                    });
+                }
             }
         });
     }
@@ -91,7 +192,7 @@ public class Add_Attendee extends AppCompatActivity {
         listt.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                textView.setText(dataList.get(position));
+                textView.setText(adapter.getItem(position));
                 digg.dismiss();
             }
         });

@@ -19,6 +19,9 @@ public class Home extends AppCompatActivity {
       //  EdgeToEdge.enable(this);
         setContentView(R.layout.activity_home);
         scheduleNewMeetingButton = findViewById(R.id.schedulinggg);
+        upcomingMeetingsButton = findViewById(R.id.cominggg);
+        plannedMeetingsButton = findViewById(R.id.planned);
+        previousMeetingsButton = findViewById(R.id.previous);
         scheduleNewMeetingButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
@@ -26,6 +29,28 @@ public class Home extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-    }
+        upcomingMeetingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Home.this, upcoming_meetings.class);
+                startActivity(intent);
+            }
+        });
+        plannedMeetingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Home.this,Planned_Meetings.class);
+                startActivity(intent);
+            }
+        });
 
+        previousMeetingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Home.this, Previous_Meetings.class);
+                startActivity(intent);
+            }
+        });
+    }
 }
+
