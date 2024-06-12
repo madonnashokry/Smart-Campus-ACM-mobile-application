@@ -53,6 +53,17 @@
         android:textColor="@color/black"
         android:textSize="18dp" />
 
+    <Button
+        android:id="@+id/addddd"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="105dp"
+        android:layout_marginTop="500dp"
+        android:backgroundTint="@color/green"
+        android:text="Add"
+        android:textColor="@color/white"
+        android:textSize="15dp" />
+
 
 </RelativeLayout>
 

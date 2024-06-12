@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -41,6 +42,7 @@ public class Add_Attendee extends AppCompatActivity {
     private static final String BASE_URL = "http://90.84.199.65:8000/course/";
     private ArrayAdapter<String> peopleAdapter;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +52,7 @@ public class Add_Attendee extends AppCompatActivity {
         people = findViewById(R.id.txt4);
         arrlist = new ArrayList<>();
         arrpeople = new ArrayList<>();
+        Button addd= findViewById(R.id.addddd);
         SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences", MODE_PRIVATE);
         accessToken = sharedPreferences.getString("access_token", "");
 
@@ -62,7 +65,12 @@ public class Add_Attendee extends AppCompatActivity {
             subj.setText(courseName);
             fetchStudents(courseName);
         }
-
+        addd.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        Toast.makeText(Add_Attendee.this, "student added sussefully " , Toast.LENGTH_SHORT).show();
+                                    }
+                                });
         subj.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

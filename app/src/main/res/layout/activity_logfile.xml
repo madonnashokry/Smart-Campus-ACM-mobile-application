@@ -52,15 +52,30 @@
             android:gravity="center"
             app:layout_constraintStart_toEndOf="@id/back"
             app:layout_constraintTop_toTopOf="parent" />
+
     </RelativeLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
+
+        <EditText
+            android:id="@+id/eventIdInput"
+            android:layout_width="237dp"
+            android:layout_height="46dp"
+            android:hint="Enter Event ID"
+            android:imeOptions="actionSend"
+            tools:layout_editor_absoluteX="158dp"
+            tools:layout_editor_absoluteY="104dp"
+            android:layout_marginTop="60dp"
+            android:layout_marginLeft="25dp"
+
+            tools:ignore="MissingConstraints" />
+
+        <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/lotrecyc"
         tools:listitem="@layout/log_item_view"
         tools:itemCount="3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="60dp"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="103dp"
         app:layout_constraintEnd_toEndOf="parent"
