@@ -6,8 +6,8 @@ public class LogItem {
     private String middleName;
     private String lastName;
     private String role;
-    private String loginTime;
-    private String logoutTime;
+    private String Login_time;
+    private String Logout_time;
     private boolean attended;
 
     public LogItem(int participantId, String firstName, String middleName, String lastName, String role, String loginTime, String logoutTime, boolean attended) {
@@ -17,8 +17,8 @@ public class LogItem {
         this.middleName = middleName;
         this.lastName = lastName;
         this.role = role;
-        this.loginTime = loginTime;
-        this.logoutTime = logoutTime;
+        this.Login_time = loginTime;
+        this.Logout_time = logoutTime;
         this.attended = attended;
     }
 
@@ -63,19 +63,19 @@ public class LogItem {
     }
 
     public String getLoginTime() {
-        return loginTime;
+        return Login_time;
     }
 
     public void setLoginTime(String loginTime) {
-        this.loginTime = loginTime;
+        this.Login_time = loginTime;
     }
 
     public String getLogoutTime() {
-        return logoutTime;
+        return Logout_time;
     }
 
     public void setLogoutTime(String logoutTime) {
-        this.logoutTime = logoutTime;
+        this.Logout_time = logoutTime;
     }
 
     public boolean isAttended() {

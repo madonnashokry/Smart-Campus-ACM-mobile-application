@@ -4,12 +4,10 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,7 +36,7 @@ public class logfilee extends AppCompatActivity {
     OkHttpClient client;
     RecyclerView logitemfile;
     EditText eventIdInput;
-
+    Button submitBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +45,7 @@ public class logfilee extends AppCompatActivity {
         backbtn = findViewById(R.id.back);
         logitemfile = findViewById(R.id.lotrecyc);
         eventIdInput = findViewById(R.id.eventIdInput);
+        submitBtn = findViewById(R.id.submitBtn);
 
         logitemfile.setLayoutManager(new LinearLayoutManager(this));
 
@@ -55,25 +54,16 @@ public class logfilee extends AppCompatActivity {
 
         client = new OkHttpClient();
 
-        // Request focus for the EditText
-        eventIdInput.requestFocus();
-
-        eventIdInput.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_SEND &&!TextUtils.isEmpty(eventIdInput.getText().toString())) {
-                    try {
-                        int eventID = Integer.parseInt(eventIdInput.getText().toString());
-                        Log.d("Logfile", "Fetching log items for eventID: " + eventID); // Debugging log
-                        fetchLogItems(eventID); // Fetch log items after getting the event ID
-                        Toast.makeText(logfilee.this, "Fetching...", Toast.LENGTH_SHORT).show(); // Feedback to user
-                        return true; // Indicate that the action has been handled
-                    } catch (NumberFormatException e) {
-                        Toast.makeText(logfilee.this, "Invalid event ID", Toast.LENGTH_SHORT).show();
-                        return false; // Indicate that the action hasn't been handled due to invalid input
-                    }
+        submitBtn.setOnClickListener(v -> {
+            if (!TextUtils.isEmpty(eventIdInput.getText().toString())) {
+                try {
+                    int eventID = Integer.parseInt(eventIdInput.getText().toString());
+                    fetchLogItems(eventID); // Fetch log items after getting the event ID
+                } catch (NumberFormatException e) {
+                    Toast.makeText(logfilee.this, "Invalid event ID", Toast.LENGTH_SHORT).show();
                 }
-                return false; // Return false if the action hasn't been handled
+            } else {
+                Toast.makeText(logfilee.this, "Event ID cannot be empty", Toast.LENGTH_SHORT).show();
             }
         });
     }

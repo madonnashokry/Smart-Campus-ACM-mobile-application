@@ -10,12 +10,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.campus.acm.R;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import Session.LogItem;
 
 public class LogItemAdapter extends RecyclerView.Adapter<LogItemAdapter.LogItemViewHolder> {
     private List<LogItem> logItemList;
+    private SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault());
+    private SimpleDateFormat outputFormat = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
 
     public LogItemAdapter(List<LogItem> logItemList) {
         this.logItemList = logItemList;
@@ -56,8 +62,20 @@ public class LogItemAdapter extends RecyclerView.Adapter<LogItemAdapter.LogItemV
         public void bind(LogItem logItem) {
             attendeeTextView.setText(logItem.isAttended() ? "true" : "false");
             roleTextView.setText(logItem.getRole());
-            loginTimeTextView.setText(logItem.getLoginTime());
-            logoutTimeTextView.setText(logItem.getLogoutTime());
+
+            // Convert timestamps to a human-readable format
+            loginTimeTextView.setText(formatTimestamp(logItem.getLoginTime()));
+            logoutTimeTextView.setText(formatTimestamp(logItem.getLogoutTime()));
+        }
+
+        private String formatTimestamp(String timestamp) {
+            try {
+                Date date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault()).parse(timestamp);
+                return new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(date);
+            } catch (ParseException e) {
+                e.printStackTrace();
+                return timestamp; // Return original timestamp if parsing fails
+            }
         }
     }
 }
