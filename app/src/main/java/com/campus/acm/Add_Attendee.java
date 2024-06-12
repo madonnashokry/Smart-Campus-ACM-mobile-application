@@ -8,6 +8,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -38,6 +39,7 @@ public class Add_Attendee extends AppCompatActivity {
     private OkHttpClient client = new OkHttpClient();
     private String accessToken;
     private static final String BASE_URL = "http://90.84.199.65:8000/course/";
+    private ArrayAdapter<String> peopleAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,14 +53,15 @@ public class Add_Attendee extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences", MODE_PRIVATE);
         accessToken = sharedPreferences.getString("access_token", "");
 
+        // Initialize peopleAdapter with the arrpeople list
+        peopleAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, arrpeople);
+
         Intent intent = getIntent();
         String courseName = intent.getStringExtra("course_name");
         if (courseName != null) {
             subj.setText(courseName);
             fetchStudents(courseName);
         }
-
-
 
         subj.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,51 +77,7 @@ public class Add_Attendee extends AppCompatActivity {
             }
         });
     }
-/*
-    private void fetchCourses() {
-        Request request = new Request.Builder()
-                .url(BASE_URL)
-                .addHeader("Authorization", "Bearer " + accessToken)
-                .addHeader("Content-Type", "application/json")
-                .build();
 
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                e.printStackTrace();
-                runOnUiThread(() -> {
-                    Toast.makeText(Add_Attendee.this, "Failed to fetch courses: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                });
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                if (response.isSuccessful()) {
-                    String responseData = response.body().string();
-                    try {
-                        JSONArray jsonArray = new JSONArray(responseData);
-                        for (int i = 0; i < jsonArray.length(); i++) {
-                            JSONObject courseObject = jsonArray.getJSONObject(i);
-                            String courseName = courseObject.getString("name");
-                            arrlist.add(courseName);
-                        }
-                        runOnUiThread(() -> {
-                            Toast.makeText(Add_Attendee.this, "Courses fetched successfully!", Toast.LENGTH_SHORT).show();
-                        });
-                    } catch (Exception e) {
-                        runOnUiThread(() -> {
-                            Toast.makeText(Add_Attendee.this, "Failed to parse courses: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                        });
-                    }
-                } else {
-                    runOnUiThread(() -> {
-                        Toast.makeText(Add_Attendee.this, "Failed to fetch courses: " + response.message(), Toast.LENGTH_SHORT).show();
-                    });
-                }
-            }
-        });
-    }
-*/
     private void fetchStudents(String courseName) {
         String url = BASE_URL + courseName + "/students";
         Request request = new Request.Builder()
@@ -144,10 +103,17 @@ public class Add_Attendee extends AppCompatActivity {
                         arrpeople.clear();
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject jsonObject = jsonArray.getJSONObject(i);
-                            String studentName = jsonObject.getString("name");
-                            arrpeople.add(studentName);
+                            if (jsonObject.has("first_name") && jsonObject.has("last_name")) {
+                                String studentName = jsonObject.getString("first_name") + " " +
+                                        (jsonObject.has("middle_name") ? jsonObject.getString("middle_name") + " " : "") +
+                                        jsonObject.getString("last_name");
+                                arrpeople.add(studentName);
+                            } else {
+                                Log.d("Add_Attendee", "Missing required name fields in: " + jsonObject.toString());
+                            }
                         }
                         runOnUiThread(() -> {
+                            peopleAdapter.notifyDataSetChanged();
                             Toast.makeText(Add_Attendee.this, "Students fetched successfully!", Toast.LENGTH_SHORT).show();
                         });
                     } catch (Exception e) {
@@ -165,16 +131,21 @@ public class Add_Attendee extends AppCompatActivity {
     }
 
     private void showSearchSpinner(final TextView textView, final ArrayList<String> dataList, int layoutResId) {
-        final Dialog digg = new Dialog(Add_Attendee.this);
-        digg.setContentView(layoutResId);
-        digg.getWindow().setLayout(650, 1000);
-        digg.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        digg.show();
+        final Dialog dialog = new Dialog(Add_Attendee.this);
+        dialog.setContentView(layoutResId);
+        dialog.getWindow().setLayout(650, 1000);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
 
-        EditText edit = digg.findViewById(R.id.editText);
-        ListView listt = digg.findViewById(R.id.listview);
+        EditText edit = dialog.findViewById(R.id.editText);
+        ListView listView = dialog.findViewById(R.id.listview);
+
         ArrayAdapter<String> adapter = new ArrayAdapter<>(Add_Attendee.this, android.R.layout.simple_list_item_1, dataList);
-        listt.setAdapter(adapter);
+        listView.setAdapter(adapter);
+
+        if (textView == people) {
+            peopleAdapter = adapter;
+        }
 
         edit.addTextChangedListener(new TextWatcher() {
             @Override
@@ -189,11 +160,11 @@ public class Add_Attendee extends AppCompatActivity {
             public void afterTextChanged(Editable s) {}
         });
 
-        listt.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 textView.setText(adapter.getItem(position));
-                digg.dismiss();
+                dialog.dismiss();
             }
         });
     }

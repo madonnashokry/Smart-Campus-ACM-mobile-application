@@ -12,6 +12,8 @@
         android:name="android.hardware.nfc.hce"
         android:required="true" />
 
+
+
     <application
         android:usesCleartextTraffic="true"
         android:allowBackup="true"
@@ -23,6 +25,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SmartCampusACM"
         tools:targetApi="31">
+
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-9290928247434327~3529283830"/>
+
 
         <activity
             android:name=".Planned_Meetings"
@@ -37,7 +44,7 @@
             android:exported="true" />
 
         <activity
-            android:name=".Logfile"
+            android:name=".logfilee"
             android:exported="true" />
         <activity
             android:name=".Home"

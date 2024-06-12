@@ -354,9 +354,10 @@ EditText CourseIDd;
                             //String meetingId = responseJson.getString("id");
                             //Log.d("AddEvent", "Meeting ID: " + meetingId);
 
-                            Toast.makeText(Scheduling.this, "Event Added Successfully! " , Toast.LENGTH_SHORT).show();
+
                             Intent intent = new Intent(Scheduling.this, Add_Attendee.class);
                             intent.putExtra("course_name", subj.getText().toString());
+                            Toast.makeText(Scheduling.this, "Event Added Successfully! " , Toast.LENGTH_SHORT).show();
                             startActivity(intent);
                         } catch (Exception e) {
                             Log.e("AddEvent", "Failed to parse response: " + e.getMessage());

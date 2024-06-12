@@ -18,11 +18,11 @@
             android:layout_height="wrap_content"
             android:text="Planned Meetings"
             android:textColor="#626A6A"
-            android:textSize="27dp"
+            android:textSize="27sp"
             android:textStyle="bold"
             android:layout_marginTop="25dp"
             android:gravity="center"
-            app:layout_constraintTop_toTopOf="@+id/main"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
@@ -30,8 +30,8 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:src="@drawable/calendar"
-            app:layout_constraintTop_toTopOf="@+id/main"
-            app:layout_constraintEnd_toEndOf="@+id/main"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="16dp" />
 
@@ -40,7 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Today      Sunday, Feb 24,2024"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:textStyle="bold"
             android:textColor="#919595"
             android:layout_marginTop="25dp"
@@ -48,14 +48,16 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view"
+        <!-- Placeholder for dynamic meeting views -->
+        <LinearLayout
+            android:id="@+id/meetings_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:layout_marginTop="30dp"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/date_text"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/date_text" />
+            app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

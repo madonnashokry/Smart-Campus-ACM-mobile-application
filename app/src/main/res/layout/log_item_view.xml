@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/log_itemm"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
@@ -28,40 +29,31 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
+                    android:id="@+id/atteee"
+                    android:layout_width="72dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginHorizontal="10dp"
-                    android:layout_weight="1"
                     android:layout_marginVertical="3dp"
+                    android:layout_weight="1"
                     android:fontFamily="sans-serif-black"
-                    android:text="Fep 10, 2020"
+                    android:text="attend?"
                     android:textAlignment="center"
                     android:textColor="@color/black"
                     android:textSize="18sp" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
+                    android:id="@+id/rolee"
+                    android:layout_width="84dp"
+                    android:layout_height="32dp"
+                    android:layout_marginVertical="3dp"
                     android:layout_weight="1"
                     android:fontFamily="sans-serif"
-                    android:text="Lecture"
-                    android:layout_marginVertical="3dp"
+                    android:text="role"
                     android:textAlignment="center"
                     android:textColor="@color/black"
                     android:textSize="15sp"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:fontFamily="sans-serif"
-                    android:text="Hall 1"
-                    android:layout_marginVertical="3dp"
-                    android:textAlignment="center"
-                    android:textColor="@color/black"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
             </LinearLayout>
 
             <LinearLayout
@@ -73,6 +65,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/logintime"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_marginHorizontal="10dp"
@@ -96,6 +89,7 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/logouttime"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_weight="1"
