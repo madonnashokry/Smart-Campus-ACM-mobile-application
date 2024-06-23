@@ -10,9 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.campus.acm.R;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -45,6 +43,11 @@ public class LogItemAdapter extends RecyclerView.Adapter<LogItemAdapter.LogItemV
         return logItemList.size();
     }
 
+    public void addItems(List<LogItem> newLogItems) {
+        logItemList.addAll(newLogItems);
+        notifyDataSetChanged();
+    }
+
     public static class LogItemViewHolder extends RecyclerView.ViewHolder {
         private TextView attendeeTextView;
         private TextView roleTextView;
@@ -64,18 +67,18 @@ public class LogItemAdapter extends RecyclerView.Adapter<LogItemAdapter.LogItemV
             roleTextView.setText(logItem.getRole());
 
             // Convert timestamps to a human-readable format
-            loginTimeTextView.setText(formatTimestamp(logItem.getLoginTime()));
-            logoutTimeTextView.setText(formatTimestamp(logItem.getLogoutTime()));
+            loginTimeTextView.setText(formatTime(logItem.getLoginTime()));
+            logoutTimeTextView.setText(formatTime(logItem.getLogoutTime()));
         }
 
-        private String formatTimestamp(String timestamp) {
+        private String formatTime(String duration) {
             try {
-                Date date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault()).parse(timestamp);
-                return new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(date);
-            } catch (ParseException e) {
-                e.printStackTrace();
-                return timestamp; // Return original timestamp if parsing fails
+                long seconds = Long.parseLong(duration.replace("PT", "").replace("S", ""));
+                long hours = seconds / 3600;
+                long minutes = (seconds % 3600) / 60;
+                return String.format("%02d:%02d", hours, minutes);
+            } catch (Exception e) {
+                return "Unknown time";
             }
         }
-    }
-}
+    }}

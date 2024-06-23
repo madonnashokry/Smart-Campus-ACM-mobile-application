@@ -3,18 +3,17 @@ package com.campus.acm;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import RecyclerView.EventsAdapter;
@@ -55,63 +54,47 @@ public class upcoming_meetings extends AppCompatActivity {
     }
 
     private void fetchUpcomingEvents() {
-
         Request request = new Request.Builder()
                 .url("http://90.84.199.65:8000/user/upcoming-events")
                 .addHeader("Authorization", "Bearer " + accessToken)
+                .addHeader("accept", "application/json")
                 .build();
 
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                runOnUiThread(() -> {
-                    Toast.makeText(upcoming_meetings.this, "Failed to fetch upcoming events: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                    Log.e("upcoming_meetings", "onFailure: ", e);
-                });
+                Log.e("API Error", "Failed to fetch events", e);
             }
 
+
             @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                if (response.isSuccessful()) {
-                    String responseBody = response.body().string();
-                    Log.d("upcoming_meetings", "Response: " + responseBody);
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                try {
+                    if (response.isSuccessful()) {
+                        String jsonData = response.body().string();
+                        if (jsonData != null) { // Check if jsonData is not null
+                            Events[] eventsArray = gson.fromJson(jsonData, Events[].class);
 
-                    if (responseBody.isEmpty()) {
-                        runOnUiThread(() -> {
-                            Toast.makeText(upcoming_meetings.this, "No upcoming events found.", Toast.LENGTH_SHORT).show();
-                            updateEvents(new ArrayList<>()); // Clear the list if response is empty
-                        });
-                        return;
+                            if (eventsArray != null) { // Check if eventsArray is not null
+                                runOnUiThread(() -> {
+                                    upcomingEventList.clear();
+                                    upcomingEventList.addAll(Arrays.asList(eventsArray));
+                                    eventAdapter.notifyDataSetChanged();
+                                });
+                            } else {
+                                Log.e("API Error", "Failed to parse events array");
+                            }
+                        } else {
+                            Log.e("API Error", "Response body is null");
+                        }
+                    } else {
+                        Log.e("API Error", "Failed to fetch events with status code " + response.code());
                     }
-
-                    try {
-                        Type eventType = new TypeToken<List<Events>>(){}.getType();
-                        List<Events> events = gson.fromJson(responseBody, eventType);
-
-                        runOnUiThread(() -> updateEvents(events));
-                    } catch (Exception e) {
-                        Log.e("upcoming_meetings", "Failed to parse response: ", e);
-                        runOnUiThread(() -> {
-                            Toast.makeText(upcoming_meetings.this, "Failed to parse events", Toast.LENGTH_SHORT).show();
-                        });
-                    }
-                } else {
-                    runOnUiThread(() -> {
-                        Toast.makeText(upcoming_meetings.this, "Failed to fetch upcoming events: " + response.message(), Toast.LENGTH_SHORT).show();
-                        Log.e("upcoming_meetings", "Failed to fetch upcoming events: " + response.message());
-                    });
+                } finally {
+                    response.close();
                 }
             }
         });
     }
-
-    private void updateEvents(List<Events> events) {
-        if (events == null) {
-            Log.e("upcoming_meetings", "updateEvents: received null events list");
-            return;
-        }
-        upcomingEventList.clear();
-        upcomingEventList.addAll(events);
-        eventAdapter.notifyDataSetChanged();
-    }
 }
+

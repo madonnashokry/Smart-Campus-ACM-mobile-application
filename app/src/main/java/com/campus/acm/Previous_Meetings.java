@@ -2,7 +2,7 @@ package com.campus.acm;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.widget.Toast;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -12,13 +12,11 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
 import RecyclerView.EventsAdapter;
 import Session.Events;
-import Session.eventsfilter;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
@@ -27,178 +25,82 @@ import okhttp3.Response;
 
 public class Previous_Meetings extends AppCompatActivity {
 
+    private static final String TAG = "Previous_Meetings";
+
     RecyclerView recyclerView;
     private EventsAdapter eventAdapter;
-    private List<Events> eventList;
-    private List<Events> allEvents; // Store all events
+
+    private String accessToken;
+    private List<Events> previousEventList;
+    private OkHttpClient client;
+    private Gson gson;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_previous_meetings);
 
+        SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences", MODE_PRIVATE);
+        accessToken = sharedPreferences.getString("access_token", "");
+
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        eventList = new ArrayList<>();
-        eventAdapter = new EventsAdapter(eventList);
+        previousEventList = new ArrayList<>();
+        eventAdapter = new EventsAdapter(previousEventList);
         recyclerView.setAdapter(eventAdapter);
 
-        SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences", MODE_PRIVATE);
-        String access_token = sharedPreferences.getString("access_token", "");
+        client = new OkHttpClient();
+        gson = new Gson();
 
-        fetchAllEvents(access_token);
+        fetchUpcomingEvents();
     }
 
-    private void fetchAllEvents(String access_token) {
-        OkHttpClient client = new OkHttpClient();
-        String url = "http://90.84.199.65:8000/user/events";
-
+    private void fetchUpcomingEvents() {
         Request request = new Request.Builder()
-                .url(url)
-                .addHeader("Authorization", "Bearer " + access_token)
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
+                .url("http://90.84.199.65:8000/user/pastgoing-events")
+                .addHeader("Authorization", "Bearer " + accessToken)
+                .addHeader("accept", "application/json")
                 .build();
 
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                e.printStackTrace();
-                runOnUiThread(() -> Toast.makeText(Previous_Meetings.this, "Error fetching events: " + e.getMessage(), Toast.LENGTH_SHORT).show());
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                if (response.isSuccessful()) {
-                    String responseBody = response.body().string();
-                    runOnUiThread(() -> {
-                        Toast.makeText(Previous_Meetings.this, "Events fetched successfully.", Toast.LENGTH_SHORT).show();
-                        allEvents = parseJsonResponse(responseBody);
-                        displayPreviousEvents();
-                    });
-                } else {
-                    runOnUiThread(() -> Toast.makeText(Previous_Meetings.this, "Failed to fetch events. Response code: " + response.code(), Toast.LENGTH_SHORT).show());
-                }
-            }
-        });
-    }
-
-    private List<Events> parseJsonResponse(String responseBody) {
-        Gson gson = new Gson();
-        Type listType = new TypeToken<List<Events>>() {}.getType();
-        return gson.fromJson(responseBody, listType);
-    }
-    private void displayAllEvents() {
-        eventList.clear();
-        eventList.addAll(allEvents);
-        eventAdapter.notifyDataSetChanged();
-    }
-    private void displayPreviousEvents() {
-        List<Events> previousEvents = eventsfilter.getPreviousEvents(allEvents);
-        eventList.clear();
-        eventList.addAll(previousEvents);
-        eventAdapter.notifyDataSetChanged();
-    }
-
-
-/*
-    private void displayEventsInRecyclerView(List<Events> allEvents) {
-        List<Events> previousEvents = new ArrayList<>();
-        Date currentDate = new Date();
-
-        for (Events event : allEvents) {
-            Date eventDate = event.getDate();
-            if (eventDate.before(currentDate)) {
-                previousEvents.add(event);
-            }
-        }
-        eventList.clear();
-        eventList.addAll(previousEvents); // show only past events
-        eventAdapter.notifyDataSetChanged();
-    }
-
-
-
-
-
-
-
-/*
-    private void fetchPreviousMeetings(String access_token) {
-        Log.d("AccessToken", "access_token: " + access_token);
-        OkHttpClient client = new OkHttpClient();
-        String url = "http://90.84.199.65:8000/user/pastgoing-events";
-
-        Request request = new Request.Builder()
-                .url(url)
-                .addHeader("Authorization", "Bearer " + access_token)
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
-
-        Log.d("NetworkRequest", "Request Headers: " + request.headers());
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                e.printStackTrace();
-                runOnUiThread(() -> Toast.makeText(Previous_Meetings.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+                Log.e("API Error", "Failed to fetch events", e);
             }
 
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                if (response.isSuccessful()) {
-                    String responseBody = response.body().string();
-                    if (responseBody != null && !responseBody.isEmpty()) {
-                        runOnUiThread(() -> {
-                            Toast.makeText(Previous_Meetings.this, "Data is fetched.", Toast.LENGTH_SHORT).show();
-                            List<Events> pastEvents = parseJsonResponse(responseBody);
-                            if (pastEvents.isEmpty()) {
-                                // if the user has not enrolled in any previous meetings
-                                Toast.makeText(Previous_Meetings.this, "You have not enrolled in any previous meetings.", Toast.LENGTH_SHORT).show();
+                try {
+                    if (response.isSuccessful()) {
+                        String responseBody = response.body().string();
+                        Log.d(TAG, "Response Body: " + responseBody);
+
+                        if (responseBody != null) {
+                            List<Events> events = gson.fromJson(responseBody, new TypeToken<List<Events>>() {
+                            }.getType());
+
+                            if (events != null) {
+                                runOnUiThread(() -> {
+                                    previousEventList.clear();
+                                    previousEventList.addAll(events);
+                                    eventAdapter.notifyDataSetChanged();
+                                });
                             } else {
-                                eventList.clear();
-                                eventList.addAll(pastEvents);
-                                eventAdapter.notifyDataSetChanged();
+                                Log.e("API Error", "Failed to parse events array");
                             }
-                        });
+                        } else {
+                            Log.e("API Error", "Response body is null");
+                        }
                     } else {
-                        runOnUiThread(() -> Toast.makeText(Previous_Meetings.this, "No data available.", Toast.LENGTH_SHORT).show());
+                        Log.e("API Error", "Failed to fetch events with status code " + response.code());
                     }
-                } else  if (!response.isSuccessful()) {
-                    Log.e("Previous meetings", "Failed to fetch previous meetings. Response code: " + response.code());
-                    // Log the full request for debugging
-                    Request request = call.request();
-                    Log.e("Previous meetings", "Request URL: " + request.url());
-                    Log.e("Previous meetings", "Request Headers: " + request.headers());
-                    if (request.body() != null) {
-                        Log.e("Previous meetings", "Request Body: " + request.body().toString());
-                    }
+                } finally {
+                    response.close();
                 }
-            }
-
-
-            private List<Events> parseJsonResponse(String responseBody) {
-                Gson gson = new Gson();
-                Type listType = new TypeToken<List<Events>>() {}.getType();
-                List<Events> allEvents = gson.fromJson(responseBody, listType);
-
-                // Filter out future events
-                List<Events> pastEvents = new ArrayList<>();
-                Date currentDate = new Date();
-
-                for (Events event : allEvents) {
-                    Date eventDate = event.getDate();
-                    if (eventDate.before(currentDate)) {
-                        pastEvents.add(event);
-                    }
-                }
-
-                return pastEvents;
             }
         });
     }
-
- */
 }

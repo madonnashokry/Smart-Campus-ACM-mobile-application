@@ -1,63 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F5F5">
+    android:background="#F5F5F5"
+    tools:context=".Planned_Meetings">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/main"
-        android:layout_width="match_parent"
+    <ImageButton
+        android:id="@+id/editr_button"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:context=".Planned_Meetings">
+        android:layout_marginTop="12dp"
+        android:onClick="onEditButtonClick"
+        android:src="@drawable/baseline_edit_square_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.049"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
+    <TextView
             android:id="@+id/meetings_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Planned Meetings"
+            android:layout_marginTop="25dp"
+            android:gravity="center"
+            android:text="Planned Events"
             android:textColor="#626A6A"
             android:textSize="27sp"
             android:textStyle="bold"
-            android:layout_marginTop="25dp"
-            android:gravity="center"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/calendar"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="16dp" />
-
-        <TextView
-            android:id="@+id/date_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Today      Sunday, Feb 24,2024"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:textColor="#919595"
-            android:layout_marginTop="25dp"
-            app:layout_constraintTop_toBottomOf="@id/meetings_text"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Placeholder for dynamic meeting views -->
-        <LinearLayout
-            android:id="@+id/meetings_container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="30dp"
-            app:layout_constraintTop_toBottomOf="@id/date_text"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+    <ImageButton
+        android:id="@+id/calndr_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="16dp"
+        android:backgroundTint="@color/white"
+        android:onClick="onClick"
+        android:src="@drawable/baseline_calendar_month_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="407dp"
+        android:layout_height="666dp"
+        android:layout_marginTop="25dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+
+        tools:itemCount="3"
+        tools:listitem="@layout/meeting_item" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,14 +6,28 @@ public class user {
     String middle_name;
     String last_name;
     String ssn;
-    String email ;
+    public String email ;
     String password ;
     String role ;
 
 
+    public String getSsn() {
+        return ssn;
+    }
 
+    public void setSsn(String ssn) {
+        this.ssn = ssn;
+    }
 
-  //public void user()
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    //public void user()
     public void setFirst_name(String first_name) {
         this.first_name = first_name;
     }

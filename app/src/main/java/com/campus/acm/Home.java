@@ -3,6 +3,7 @@ package com.campus.acm;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
@@ -22,6 +23,17 @@ public class Home extends AppCompatActivity {
         upcomingMeetingsButton = findViewById(R.id.cominggg);
         plannedMeetingsButton = findViewById(R.id.planned);
         previousMeetingsButton = findViewById(R.id.previous);
+       ImageButton profileButton = findViewById(R.id.male_user);
+        profileButton.setOnClickListener(new View.OnClickListener() {
+
+                                             @Override
+                                             public void onClick(View v) {
+                                                 Intent intent = new Intent(Home.this, Profile.class);
+                                                 startActivity(intent);
+                                             }
+                                         });
+
+
         scheduleNewMeetingButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {

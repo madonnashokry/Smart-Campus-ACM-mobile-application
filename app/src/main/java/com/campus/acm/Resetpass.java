@@ -2,13 +2,13 @@ package com.campus.acm;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import org.json.JSONObject;
 
 import java.io.IOException;
 
@@ -22,18 +22,19 @@ import okhttp3.Response;
 
 public class Resetpass extends AppCompatActivity {
 
-
+    String accessToken;
     //ViewFlipper ViewFlipper;
     EditText EmailEditText;
     EditText VerificationCode;
     EditText NewPassword;
     EditText ConfirmPassword;
-    //TextView mErrorTextView;
     Button contt;
 
     private static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
     OkHttpClient client = new OkHttpClient();
+
     private static final String TAG = "Resetpass";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,36 +43,69 @@ public class Resetpass extends AppCompatActivity {
         NewPassword = findViewById(R.id.password);
         ConfirmPassword = findViewById(R.id.confirmpassword);
         contt = findViewById(R.id.confrm);
+        SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences", MODE_PRIVATE);
+        accessToken = sharedPreferences.getString("access_token", "");
+        contt.setOnClickListener(view -> {
+            String newPassword = NewPassword.getText().toString();
+            String confirmPassword = ConfirmPassword.getText().toString();
 
-
-
-
-        contt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String newPassword = NewPassword.getText().toString();
-                String confirmPassword = ConfirmPassword.getText().toString();
-
-                if (newPassword.isEmpty() || confirmPassword.isEmpty()) {
-                    Toast.makeText(Resetpass.this, "Please fill in all fields.", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                if (!newPassword.equals(confirmPassword)) {
-                    Toast.makeText(Resetpass.this, "Passwords do not match.", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
+            if (newPassword.equals(confirmPassword)) {
                 try {
                     resetPassword(newPassword);
                 } catch (Exception e) {
-                    Log.e(TAG, "Error during password reset", e);
-                    Toast.makeText(Resetpass.this, "An error occurred while resetting the password.", Toast.LENGTH_SHORT).show();
+                    e.printStackTrace();
                 }
+            } else {
+                Toast.makeText(Resetpass.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
+
+    private void resetPassword(String newPassword) throws Exception {
+      
+        JSONObject json = new JSONObject();
+        json.put("new_password", newPassword);
+
+        // Create request body
+        RequestBody body = RequestBody.create(json.toString(), JSON);
+
+        // Create request
+        Request request = new Request.Builder()
+                .url("http://90.84.199.65:8000/password-reset")
+                .patch(body)
+                .addHeader("accept", "application/json")
+                .addHeader("Authorization", "Bearer " + accessToken)
+                .addHeader("Content-Type", "application/json")
+                .build();
+
+        // Send request
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                // Handle failure
+                runOnUiThread(() ->
+                        Toast.makeText(Resetpass.this, "Request failed: " + e.getMessage(), Toast.LENGTH_SHORT).show()
+                );
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                // Handle response
+                if (response.isSuccessful()) {
+                    runOnUiThread(() ->
+                            Toast.makeText(Resetpass.this, "Password reset successful", Toast.LENGTH_SHORT).show()
+                    );
+                } else {
+                    runOnUiThread(() ->
+                            Toast.makeText(Resetpass.this, "Password reset failed: " + response.message(), Toast.LENGTH_SHORT).show()
+                    );
+                }
+            }
+        });
+    }
+}
+/*
     private void resetPassword(String newPassword) {
         SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences", MODE_PRIVATE);
         String accessToken = sharedPreferences.getString("access_token", "");

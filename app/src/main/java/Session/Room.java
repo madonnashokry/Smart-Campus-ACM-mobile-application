@@ -1,11 +1,15 @@
 package Session;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Room {
 
     int id;
-   String building;
-   int floor ;
-   String name;
+    String building;
+    int floor;
+    @SerializedName("room_name")
+    private String name;
+
 
     public Room(int id, String building, int floor, String name) {
         this.id = id;

@@ -3,11 +3,11 @@ package com.campus.acm;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,6 +16,8 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
+import okhttp3.Call;
+import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -30,6 +32,14 @@ public class Profile extends AppCompatActivity {
     private EditText confirmPasswordEditText;
     Button changePasswordButton ;
     Button saveButton ;
+
+    String accessToken;
+
+
+    private TextView firstNameTextView;
+    private TextView roleTextView;
+    private TextView idTextView;
+    private TextView emailTextView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,80 +47,69 @@ public class Profile extends AppCompatActivity {
 
         // Initialize views
         profileText = findViewById(R.id.profile_text);
-        firstNameEditText = findViewById(R.id.first_name_edittext);
-        lastNameEditText = findViewById(R.id.last_name_edittext);
-        passwordEditText = findViewById(R.id.password_edittext);
-       changePasswordButton = findViewById(R.id.changepass);
 
-     saveButton = findViewById(R.id.svebutton);
-        saveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               // fetchUserDetailsById();
-                Toast.makeText( Profile.this, "Your data is set successfully", Toast.LENGTH_SHORT).show();
-            }
-        });
+       changePasswordButton = findViewById(R.id.changepass);
+        firstNameTextView = findViewById(R.id.fsttlet);
+        roleTextView = findViewById(R.id.rolllet);
+        idTextView = findViewById(R.id.iddget);
+        emailTextView = findViewById(R.id.emmlet);
+
+
         changePasswordButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Start Resetpass activity
-                startActivity(new Intent(Profile.this, Resetpass.class));
+                startActivity(new Intent(Profile.this, SignInActivity.class));
             }
-
-
         });
         SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences", MODE_PRIVATE);
-        String userId = sharedPreferences.getString("user_id", "");
+        accessToken = sharedPreferences.getString("access_token", "");
+        fetchUserDetails();
 
 }
-
-    public void fetchUserDetailsById(String userId) {
-        SharedPreferences sharedPreferenc = getSharedPreferences("sharedPreferences", MODE_PRIVATE);
-        String access_token = sharedPreferenc.getString("acess_token", "");
-
+    private void fetchUserDetails() {
         OkHttpClient client = new OkHttpClient();
-        String url = "http://90.84.199.65:8000/user/" + userId;
 
         Request request = new Request.Builder()
-                .url(url)
-                .addHeader("Authorization", "Bearer " + access_token) // Retrieve accessToken from shared preferences
-                .addHeader("Content-Type", "application/json")
+                .url("http://90.84.199.65:8000/user/info")
+                .addHeader("Authorization", "Bearer " + accessToken)
                 .build();
 
-        client.newCall(request).enqueue(new okhttp3.Callback() {
+        client.newCall(request).enqueue(new Callback() {
             @Override
-            public void onFailure(okhttp3.Call call, IOException e) {
-                e.printStackTrace();
-                runOnUiThread(() -> Toast.makeText(Profile.this, "Error fetching user details: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+            public void onFailure(Call call, IOException e) {
+                Log.e("Profile", "API call failed: " + e.getMessage());
             }
 
             @Override
-            public void onResponse(okhttp3.Call call, Response response) throws IOException {
-                if (!response.isSuccessful()) {
-                    runOnUiThread(() -> Toast.makeText(Profile.this, "Failed to fetch user details", Toast.LENGTH_SHORT).show());
-                    return;
-                }
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    final String responseData = response.body().string();
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                JSONObject jsonObject = new JSONObject(responseData);
+                                String id = jsonObject.getString("id");
+                                String firstName = jsonObject.getString("first_name");
+                                String email = jsonObject.getString("email");
+                                String role = jsonObject.getString("role");
 
-                String responseBody = response.body().string();
-                try {
-                    JSONObject jsonResponse = new JSONObject(responseBody);
-                    // Assuming the response contains user details like first name, last name, etc.
-                    String firstName = jsonResponse.getString("first_name");
-                    //String username = jsonResponse.getString()
-                    String lastName = jsonResponse.getString("last_name");
-                    // Update UI elements with user details
-                    runOnUiThread(() -> {
-                        firstNameEditText.setText(firstName);
-                        lastNameEditText.setText(lastName);
+                                idTextView.setText(id);
+                                firstNameTextView.setText(firstName);
+                                emailTextView.setText(email);
+                                roleTextView.setText(role);
+                            } catch (JSONException e) {
+                                Log.e("Profile", "JSON parsing error: " + e.getMessage());
+                            }
+                        }
                     });
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    runOnUiThread(() -> Toast.makeText(Profile.this, "Error parsing user details JSON.", Toast.LENGTH_SHORT).show());
+                } else {
+                    Log.e("Profile", "fetching unsuccessful: " + response.code());
                 }
             }
         });
     }
-
-
-
 }
+
+

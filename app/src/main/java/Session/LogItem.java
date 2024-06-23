@@ -6,9 +6,12 @@ public class LogItem {
     private String middleName;
     private String lastName;
     private String role;
+
     private String Login_time;
     private String Logout_time;
     private boolean attended;
+    private String duration;
+
 
     public LogItem(int participantId, String firstName, String middleName, String lastName, String role, String loginTime, String logoutTime, boolean attended) {
 
@@ -84,5 +87,12 @@ public class LogItem {
 
     public void setAttended(boolean attended) {
         this.attended = attended;
+    }
+    public String getDuration() {
+        return duration;
+    }
+
+    public void setDuration(String duration) {
+        this.duration = duration;
     }
 }

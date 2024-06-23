@@ -9,18 +9,18 @@
     tools:context=".Attendence_tracking">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="409dp"
+        android:layout_height="738dp"
         android:orientation="vertical"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="81dp"
-            android:gravity="center_vertical"
+            android:layout_height="82dp"
             android:background="#0E9090"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <!-- Left arrow icon -->
@@ -38,11 +38,11 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:gravity="center"
                 android:text="Attendance Tracking"
                 android:textColor="#FFFFFF"
                 android:textSize="22dp"
-                android:textStyle="normal|bold"
-                android:gravity="center" />
+                android:textStyle="normal|bold" />
 
             <!-- Notification icon on the right -->
             <ImageButton
@@ -54,26 +54,13 @@
                 android:background="@drawable/notfc" />
         </LinearLayout>
 
+
         <com.github.mikephil.charting.charts.PieChart
             android:id="@+id/chart"
             android:layout_width="match_parent"
-            android:layout_height="440dp" />
+            android:layout_height="430dp"
+            android:layout_marginTop="50dp" />
 
     </LinearLayout>
-
-    <Button
-        android:id="@+id/logee"
-        android:layout_width="171dp"
-        android:layout_height="47dp"
-        android:layout_marginBottom="100dp"
-        android:drawableStart="@drawable/logrec"
-        android:text="Log file"
-        android:textSize="15dp"
-        android:textStyle="normal|bold"
-        android:backgroundTint="#0E9090"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.937"
-        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

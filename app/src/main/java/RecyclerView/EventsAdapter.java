@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,11 +15,10 @@ import java.util.Date;
 import java.util.List;
 
 import Session.Events;
-import Session.Room;
 
 public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.MeetingViewHolder> {
-
     private List<Events> events;
+    private static final String TAG = "EventsAdapter";
 
     public EventsAdapter(List<Events> events) {
         this.events = events;
@@ -41,14 +39,17 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.MeetingVie
 
             String formattedDate = formatDate(event.getDate());
             String formattedTime = formatTime(event.getStart_time()) + " - " + formatTime(event.getEnd_time());
-            String roomDetails = formatRoomDetails(event.getRoom());
+            String roomName = event.getRoom_name();
+
+            Log.d(TAG, "Binding event: " + event.getEvent_name() + ", Room Name: " + roomName);  // Log the room name
 
             holder.eventName.setText(event.getEvent_name());
+            holder.date.setText(formattedDate);
             holder.time.setText(formattedTime);
-            holder.roomDetails.setText(roomDetails);
+            holder.room_name.setText(roomName);
         } catch (Exception e) {
             e.printStackTrace();
-            Log.e("EventsAdapter", "Error binding view at position " + position, e);
+            Log.e(TAG, "Error binding view at position " + position, e);
         }
     }
 
@@ -59,31 +60,38 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.MeetingVie
 
     public static class MeetingViewHolder extends RecyclerView.ViewHolder {
         public TextView eventName;
+        public TextView date;
         public TextView time;
-        public TextView roomDetails;
+        public TextView room_name;
 
         public MeetingViewHolder(View view) {
             super(view);
             eventName = view.findViewById(R.id.event_name);
+            date = view.findViewById(R.id.date);
             time = view.findViewById(R.id.time);
-            roomDetails = view.findViewById(R.id.room_details);
+            room_name = view.findViewById(R.id.room_details);
         }
     }
 
-    private String formatDate(Date date) {
-        if (date == null) return "Unknown date";
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy, MMM dd");
-        return dateFormat.format(date);
+    private String formatDate(String date) {
+        try {
+            SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy, MMM dd");
+            Date parsedDate = inputFormat.parse(date);
+            return outputFormat.format(parsedDate);
+        } catch (Exception e) {
+            return "Unknown date";
+        }
     }
 
-    private String formatTime(Date time) {
-        if (time == null) return "Unknown time";
-        SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a");
-        return timeFormat.format(time);
-    }
-
-    private String formatRoomDetails(Room room) {
-        if (room == null) return "Unknown room";
-        return "Floor " + room.getFloor() + ", " + room.getName();
+    private String formatTime(String duration) {
+        try {
+            long seconds = Long.parseLong(duration.replace("PT", "").replace("S", ""));
+            long hours = seconds / 3600;
+            long minutes = (seconds % 3600) / 60;
+            return String.format("%02d:%02d", hours, minutes);
+        } catch (Exception e) {
+            return "Unknown time";
+        }
     }
 }

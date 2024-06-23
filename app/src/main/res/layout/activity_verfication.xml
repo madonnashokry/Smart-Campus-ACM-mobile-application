@@ -115,7 +115,14 @@
         app:layout_constraintStart_toEndOf="@+id/editText3"
         app:layout_constraintTop_toTopOf="@+id/editText1" />
 
-
+    <Button
+        android:id="@+id/button_verify"
+        android:layout_width="112dp"
+        android:layout_height="46dp"
+        android:onClick="onVerifyButtonClick"
+        android:text="Verify"
+        tools:layout_editor_absoluteX="161dp"
+        tools:layout_editor_absoluteY="582dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
