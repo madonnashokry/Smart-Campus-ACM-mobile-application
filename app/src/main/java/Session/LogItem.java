@@ -6,14 +6,52 @@ public class LogItem {
     private String middleName;
     private String lastName;
     private String role;
+    private String eventName;
+    private String courseName;
 
-    private String Login_time;
-    private String Logout_time;
+    private int Login_time;  // Store as seconds since midnight
+    private int Logout_time;
     private boolean attended;
     private String duration;
 
+    public int getLogin_time() {
+        return Login_time;
+    }
 
-    public LogItem(int participantId, String firstName, String middleName, String lastName, String role, String loginTime, String logoutTime, boolean attended) {
+    public void setLogin_time(int login_time) {
+        Login_time = login_time;
+    }
+
+    public int getLogout_time() {
+        return Logout_time;
+    }
+
+    public void setLogout_time(int logout_time) {
+        Logout_time = logout_time;
+    }
+
+    public LogItem() {
+    }
+
+    // Parameterized constructor
+
+    public String getEventName() {
+        return eventName;
+    }
+
+    public void setEventName(String eventName) {
+        this.eventName = eventName;
+    }
+
+    public String getCourseName() {
+        return courseName;
+    }
+
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
+    }
+
+    public LogItem(int participantId, String firstName, String middleName, String lastName, String role, int loginTime, int logoutTime, boolean attended) {
 
         this.participantId = participantId;
         this.firstName = firstName;
@@ -65,21 +103,6 @@ public class LogItem {
         this.role = role;
     }
 
-    public String getLoginTime() {
-        return Login_time;
-    }
-
-    public void setLoginTime(String loginTime) {
-        this.Login_time = loginTime;
-    }
-
-    public String getLogoutTime() {
-        return Logout_time;
-    }
-
-    public void setLogoutTime(String logoutTime) {
-        this.Logout_time = logoutTime;
-    }
 
     public boolean isAttended() {
         return attended;

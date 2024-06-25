@@ -10,16 +10,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.campus.acm.R;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.Locale;
 
 import Session.LogItem;
 
 public class LogItemAdapter extends RecyclerView.Adapter<LogItemAdapter.LogItemViewHolder> {
     private List<LogItem> logItemList;
-    private SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault());
-    private SimpleDateFormat outputFormat = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
 
     public LogItemAdapter(List<LogItem> logItemList) {
         this.logItemList = logItemList;
@@ -43,12 +39,9 @@ public class LogItemAdapter extends RecyclerView.Adapter<LogItemAdapter.LogItemV
         return logItemList.size();
     }
 
-    public void addItems(List<LogItem> newLogItems) {
-        logItemList.addAll(newLogItems);
-        notifyDataSetChanged();
-    }
-
     public static class LogItemViewHolder extends RecyclerView.ViewHolder {
+        private TextView eventNameTextView;
+        private TextView courseNameTextView;
         private TextView attendeeTextView;
         private TextView roleTextView;
         private TextView loginTimeTextView;
@@ -56,29 +49,34 @@ public class LogItemAdapter extends RecyclerView.Adapter<LogItemAdapter.LogItemV
 
         public LogItemViewHolder(@NonNull View itemView) {
             super(itemView);
+            eventNameTextView = itemView.findViewById(R.id.event_name);
+            courseNameTextView = itemView.findViewById(R.id.course_name);
             attendeeTextView = itemView.findViewById(R.id.atteee);
-            roleTextView = itemView.findViewById(R.id.rolee);
+
             loginTimeTextView = itemView.findViewById(R.id.logintime);
             logoutTimeTextView = itemView.findViewById(R.id.logouttime);
         }
 
         public void bind(LogItem logItem) {
+            eventNameTextView.setText(logItem.getEventName());
+            courseNameTextView.setText(logItem.getCourseName());
             attendeeTextView.setText(logItem.isAttended() ? "true" : "false");
-            roleTextView.setText(logItem.getRole());
-
-            // Convert timestamps to a human-readable format
-            loginTimeTextView.setText(formatTime(logItem.getLoginTime()));
-            logoutTimeTextView.setText(formatTime(logItem.getLogoutTime()));
+            loginTimeTextView.setText(formatTime(logItem.getLogin_time()));
+            logoutTimeTextView.setText(formatTime(logItem.getLogout_time()));
         }
 
-        private String formatTime(String duration) {
-            try {
-                long seconds = Long.parseLong(duration.replace("PT", "").replace("S", ""));
-                long hours = seconds / 3600;
-                long minutes = (seconds % 3600) / 60;
-                return String.format("%02d:%02d", hours, minutes);
-            } catch (Exception e) {
-                return "Unknown time";
-            }
+        private String formatTime(int secondsSinceMidnight) {
+            int hours = secondsSinceMidnight / 3600;
+            int minutes = (secondsSinceMidnight % 3600) / 60;
+            int seconds = secondsSinceMidnight % 60;
+
+            // Ensure that hours, minutes, and seconds are within valid ranges
+            hours %= 24;
+            minutes %= 60;
+            seconds %= 60;
+
+            return String.format("%02d:%02d:%02d", hours, minutes, seconds);
         }
-    }}
+
+    }
+}

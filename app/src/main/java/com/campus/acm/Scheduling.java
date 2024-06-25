@@ -21,6 +21,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -41,6 +42,7 @@ public class Scheduling extends AppCompatActivity {
    TextView subj;
     ArrayList<String> arrlist = new ArrayList<>();
     Dialog digg;
+    String eventId;
  Button adddd;
     private EditText editTextName;
     private EditText editTextType;
@@ -50,6 +52,7 @@ public class Scheduling extends AppCompatActivity {
     private EditText editTextRoomID;
     private ImageButton calendarButton;
     private String organizerId;
+    //Button updatebtn;
 
     String accessToken;
     private OkHttpClient client;
@@ -58,6 +61,7 @@ public class Scheduling extends AppCompatActivity {
 
 
     EditText editTextOrganizerID;
+
 
 
 EditText CourseIDd;
@@ -85,56 +89,41 @@ EditText CourseIDd;
 
         ///spinner
        subj= findViewById(R.id.Text7);
-       // arrlist = new ArrayList<>();
-       //arrlist.add("algo");
-        //arrlist.add("os");
-        //arrlist.add("linux");
-        //arrlist.add("nlp");
-        //arrlist.add("embedded");
-       /* subj.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            digg=  new Dialog(Scheduling.this);
-            digg.setContentView(R.layout.dialog_search_spinner);
-            digg.getWindow().setLayout(650,1000);
-            digg.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        // Fetch data from Intent
+        // Retrieve the extras passed from the previous activity
+        // Clear EditTexts for new event creation
 
-            digg.show();
-                EditText edit = digg.findViewById(R.id.editText);
-                ListView listt= digg.findViewById(R.id.listview);
-                ArrayAdapter<String> adapter = new  ArrayAdapter<>(Scheduling.this, android.R.layout.simple_list_item_1,arrlist);
-                listt.setAdapter(adapter);
 
-                edit.addTextChangedListener(new TextWatcher() {
-                    @Override
-                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        // Get the event_id from the intent
+        Intent intent = getIntent();
+        int eventId = intent.getIntExtra("event_id", -1);
+        if (eventId != -1) {
+            Log.d("Scheduling", "Received event ID: " + eventId);
+            // Use the event_id for your API call or other logic
+            fetchEventDetails(eventId);
+        } else {
+            Log.e("Scheduling", "No event ID received");
+            Toast.makeText(this, "Error: No event ID received", Toast.LENGTH_SHORT).show();
+        }
 
-                    }
+/*
+        if (eventId != null) {
+            editTextName.setText(intent.getStringExtra("event_name"));
+            editTextType.setText(intent.getStringExtra("type"));
+            editTextDate.setText(intent.getStringExtra("date"));
+            editTextStartTime.setText(intent.getStringExtra("start_time"));
+            editTextEndTime.setText(intent.getStringExtra("end_time"));
+            subj.setText(intent.getStringExtra("course_name"));
+            editTextRoomID.setText(intent.getStringExtra("room_id"));
+            editTextOrganizerID.setText(intent.getStringExtra("organizer_email"));
+        } else {
+            clearFields();
+        }
+*/
 
-                    @Override
-                    public void onTextChanged(CharSequence s, int start, int before, int count) {
-                      adapter.getFilter().filter(s);
-                    }
 
-                    @Override
-                    public void afterTextChanged(Editable s) {
 
-                    }
-                });
 
-             listt.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                 @Override
-                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                     subj.setText(adapter.getItem(position));
-                     digg.dismiss();
-                 }
-             });
-              
-
-            }
-        });
-
-        */
         fetchUserDetails();
         fetchCourses();
         addButton.setOnClickListener(new View.OnClickListener() {
@@ -144,8 +133,15 @@ EditText CourseIDd;
 
             }
         });
-    }
+        Button updateButton = findViewById(R.id.updateButton);
+        updateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updateEvent(eventId);
+            }
+        });
 
+    }
 
     private void fetchCourses() {
         Request request = new Request.Builder()
@@ -368,6 +364,117 @@ EditText CourseIDd;
                         Toast.makeText(Scheduling.this, "Request Failed: " + response.message(), Toast.LENGTH_SHORT).show();
                     }
                 });
+            }
+        });
+    }
+    private void updateEvent(int eventId) {
+        String name = editTextName.getText().toString();
+        String type = editTextType.getText().toString();
+        String date = editTextDate.getText().toString();
+        String startTime = editTextStartTime.getText().toString();
+        String endTime = editTextEndTime.getText().toString();
+        String courseId = editTextRoomID.getText().toString();
+        String roomId = editTextRoomID.getText().toString();
+        String url = "http://90.84.199.65:8000/event/" + eventId;
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("name", name);
+            jsonObject.put("type", type);
+            jsonObject.put("date", date);
+            jsonObject.put("start_time", startTime);
+            jsonObject.put("end_time", endTime);
+            jsonObject.put("course_id", courseId);
+            jsonObject.put("room_id", roomId);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        RequestBody body = RequestBody.create(jsonObject.toString(), JSON);
+        Request request = new Request.Builder()
+                .url(EventsURL + eventId) // Append the event ID to the base URL
+                .put(body) // Use PUT instead of POST
+                .addHeader("Authorization", "Bearer " + accessToken)
+                .addHeader("Content-Type", "application/json")
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                runOnUiThread(() -> {
+                    Toast.makeText(Scheduling.this, "Request Failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Log.e("UpdateEvent", "Request Failed: " + e.getMessage());
+                });
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                runOnUiThread(() -> {
+                    if (response.isSuccessful()) {
+                        try {
+                            String responseBody = response.body().string();
+                            Log.d("UpdateEvent", "Response: " + responseBody);
+                            Toast.makeText(Scheduling.this, "Event Updated Successfully!", Toast.LENGTH_SHORT).show();
+                        } catch (Exception e) {
+                            Log.e("UpdateEvent", "Failed to parse response: " + e.getMessage());
+                            Toast.makeText(Scheduling.this, "Failed to parse response: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        Log.e("UpdateEvent", "Request Failed: " + response.message());
+                        Toast.makeText(Scheduling.this, "Request Failed: " + response.message(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
+    }
+    private void fetchEventDetails(int eventId) {
+        String url = "http://90.84.199.65:8000/event/" + eventId;
+
+        Request request = new Request.Builder()
+                .url(url)
+                .addHeader("accept", "application/json")
+                .addHeader("Authorization", "Bearer " + accessToken)
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                runOnUiThread(() -> {
+                    Toast.makeText(Scheduling.this, "Failed to fetch event details: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Log.e("FetchEventDetails", "Request Failure: " + e.getMessage()); // Enhanced logging
+                });
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String responseBody = response.body().string();
+                if (response.isSuccessful()) {
+                    try {
+                        JSONObject jsonObject = new JSONObject(responseBody);
+                        Log.d("API Response", "Event details response: " + responseBody);
+                        runOnUiThread(() -> {
+                            try {
+                                editTextName.setText(jsonObject.getString("event_name"));
+                                editTextType.setText(jsonObject.getString("type"));
+                                editTextDate.setText(jsonObject.getString("date"));
+                                editTextStartTime.setText(jsonObject.getString("start_time"));
+                                editTextEndTime.setText(jsonObject.getString("end_time"));
+                                editTextRoomID.setText(jsonObject.getString("room_name"));
+                                editTextOrganizerID.setText(jsonObject.getString("organizer_email"));
+                                subj.setText(jsonObject.getString("course_name"));
+                            } catch (JSONException e) {
+                                throw new RuntimeException(e);
+                            }
+                        });
+                    } catch (Exception e) {
+                        runOnUiThread(() -> {
+                            Toast.makeText(Scheduling.this, "Failed to parse event details: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        });
+                    }
+                } else {
+                    runOnUiThread(() -> {
+                        Toast.makeText(Scheduling.this, "Failed to fetch event details: " + response.message(), Toast.LENGTH_SHORT).show();
+                        Log.e("FetchEventDetails", "Failed Response: " + responseBody);
+                    });
+                }
             }
         });
     }

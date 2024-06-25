@@ -9,13 +9,40 @@ public class Events {
    String type ;
  String date;
     String start_time;
+    String room_id;
+    String  course_id;
 String end_time;
     Course course ;
     user organizer ;
     Room room ;
     String room_name;
+    private String course_name;
     String organizer_email;
     List<user> attendees ;
+
+    public String getRoom_id() {
+        return room_id;
+    }
+
+    public void setRoom_id(String room_id) {
+        this.room_id = room_id;
+    }
+
+    public String getCourse_id() {
+        return course_id;
+    }
+
+    public void setCourse_id(String course_id) {
+        this.course_id = course_id;
+    }
+
+    public String getCourse_name() {
+        return course_name;
+    }
+
+    public void setCourse_name(String course_name) {
+        this.course_name = course_name;
+    }
 
     public String getOrganizer_email() {
         return organizer_email;
@@ -111,5 +138,35 @@ String end_time;
 
     public void setOrganizer(user organizer) {
         this.organizer = organizer;
+    }
+    //private boolean attended;
+    private int login_time;
+    private int logout_time;
+    private int attended;
+    // Getters and setters for the new fields
+
+    public boolean isAttended() {
+        return attended == 1;
+    }
+
+    public void setAttended(int attended) {
+        this.attended = attended;
+    }
+
+
+    public int getLogin_time() {
+        return login_time;
+    }
+
+    public void setLogin_time(int login_time) {
+        this.login_time = login_time;
+    }
+
+    public int getLogout_time() {
+        return logout_time;
+    }
+
+    public void setLogout_time(int logout_time) {
+        this.logout_time = logout_time;
     }
 }

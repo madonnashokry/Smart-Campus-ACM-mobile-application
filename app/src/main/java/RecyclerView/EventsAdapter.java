@@ -1,14 +1,18 @@
 package RecyclerView;
 
+import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.campus.acm.R;
+import com.campus.acm.Scheduling;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -18,10 +22,21 @@ import Session.Events;
 
 public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.MeetingViewHolder> {
     private List<Events> events;
+    private Context context;
     private static final String TAG = "EventsAdapter";
+    private OnItemClickListener onItemClickListener;
 
-    public EventsAdapter(List<Events> events) {
+
+    public interface OnItemClickListener {
+        void onItemClick(Events event);
+    }
+
+    public EventsAdapter(List<Events> events, Context context) {
         this.events = events;
+        this.context = context;
+    }
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
     }
 
     @NonNull
@@ -47,6 +62,12 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.MeetingVie
             holder.date.setText(formattedDate);
             holder.time.setText(formattedTime);
             holder.room_name.setText(roomName);
+
+            holder.itemView.setOnClickListener(v -> {
+                Intent intent = new Intent(context, Scheduling.class);
+                intent.putExtra("event_id", event.getEvent_id());
+                context.startActivity(intent);
+            });
         } catch (Exception e) {
             e.printStackTrace();
             Log.e(TAG, "Error binding view at position " + position, e);

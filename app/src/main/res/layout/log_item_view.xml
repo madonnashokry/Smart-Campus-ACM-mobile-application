@@ -5,103 +5,151 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
-    android:padding="8dp"
+    android:padding="12dp"
     android:background="@drawable/rounded_rec2"
-    app:cardCornerRadius="13dp">
+    app:cardCornerRadius="13dp"
+    app:cardElevation="4dp">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@drawable/rounded_rec2"
-        >
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
+        <!-- Event and Course Names -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="67dp"
+            android:orientation="horizontal"
+            android:paddingBottom="8dp">
+
+            <TextView
+                android:id="@+id/event_name"
+                android:layout_width="112dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="15dp"
+                android:layout_weight="1"
+                android:text="Event Name"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/course_name"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginTop="15dp"
+                android:layout_weight="1"
+                android:text="Course Name"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Other Log Item Details -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="20dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingBottom="8dp">
 
             <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_width="50dp"
+                android:layout_height="60dp"
 
-                android:gravity="center"
+                android:layout_marginLeft="100dp"
+                android:layout_weight="1"
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/atteee"
-                    android:layout_width="72dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="10dp"
+                    android:layout_gravity="center_horizontal"
+                    android:text="Attendee?"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/atteee"
+                    android:layout_width="89dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
                     android:layout_marginVertical="3dp"
-                    android:layout_weight="1"
-                    android:fontFamily="sans-serif-black"
+                    android:fontFamily="sans-serif"
                     android:text="attend?"
                     android:textAlignment="center"
                     android:textColor="@color/black"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/rolee"
-                    android:layout_width="76dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="3dp"
-                    android:layout_weight="1"
-                    android:fontFamily="sans-serif"
-                    android:text="role"
-                    android:textAlignment="center"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@color/cardview_light_background"
-                android:gravity="center"
+                android:orientation="vertical"/>
+        </LinearLayout>
+
+        <!-- Login and Logout Times -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="8dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/logintime"
-                    android:layout_width="83dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="10dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_weight="1"
-                    android:fontFamily="sans-serif-black"
-                    android:text="Logout Time"
+                    android:layout_marginLeft="15dp"
+                    android:text="Login Time"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/logintime"
+                    android:layout_width="77dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="3dp"
+                    android:fontFamily="sans-serif"
+                    android:text=" "
                     android:textAlignment="center"
                     android:textColor="@color/black"
-                    android:textSize="18sp" />
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:fontFamily="sans-serif"
-                    android:text="-"
-                    android:textAlignment="center"
+                    android:layout_height="wrap_content"
+                    android:text="Logout Time"
                     android:textColor="@color/black"
-                    android:textSize="15sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/logouttime"
-                    android:layout_width="96dp"
+                    android:layout_width="75dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
-                    android:layout_weight="1"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="3dp"
                     android:fontFamily="sans-serif"
-                    android:text="Logout Time"
+                    android:text=" "
                     android:textAlignment="center"
                     android:textColor="@color/black"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:textSize="16sp" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

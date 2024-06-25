@@ -44,7 +44,8 @@ public class upcoming_meetings extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         upcomingEventList = new ArrayList<>();
-        eventAdapter = new EventsAdapter(upcomingEventList);
+        eventAdapter = new EventsAdapter(upcomingEventList,this
+        );
         recyclerView.setAdapter(eventAdapter);
 
         client = new OkHttpClient();

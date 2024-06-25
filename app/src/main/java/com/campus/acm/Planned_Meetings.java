@@ -52,7 +52,7 @@ public class Planned_Meetings extends AppCompatActivity {
 
         editt = findViewById(R.id.editr_button);
         cale = findViewById(R.id.calndr_icon);
-        editt.setOnClickListener(v -> navigateToSchedulingActivity());
+        //editt.setOnClickListener(v -> navigateToSchedulingActivity());
         SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences", MODE_PRIVATE);
         accessToken = sharedPreferences.getString("access_token", "");
 
@@ -60,7 +60,10 @@ public class Planned_Meetings extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         EventsList = new ArrayList<>();
-        eventAdapter = new EventsAdapter(EventsList);
+        eventAdapter = new EventsAdapter(EventsList,this
+        );
+        eventAdapter.setOnItemClickListener(this::navigateToSchedulingActivity);
+
         recyclerView.setAdapter(eventAdapter);
 
         client = new OkHttpClient();
@@ -93,6 +96,14 @@ public class Planned_Meetings extends AppCompatActivity {
             }
         });
     }
+    private void navigateToSchedulingActivity(Events event) {
+        Intent intent = new Intent(this, Scheduling.class);
+        Log.d("NavigateToScheduling", "Navigating to scheduling activity with event ID: " + event.getEvent_id());
+        intent.putExtra("event_id", event.getEvent_id());
+        startActivity(intent);
+    }
+
+
 
     private void fetchUserDetails() {
         String url = "http://90.84.199.65:8000/user/info";
@@ -205,7 +216,8 @@ public class Planned_Meetings extends AppCompatActivity {
         });
     }
 
-    private void navigateToSchedulingActivity() {
+
+    private void navigateToSchedulingActivit() {
         Intent intent = new Intent(Planned_Meetings.this, Scheduling.class);
         startActivity(intent);
     }

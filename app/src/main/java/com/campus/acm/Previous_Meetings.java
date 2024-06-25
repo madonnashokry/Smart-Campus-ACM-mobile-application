@@ -48,7 +48,7 @@ public class Previous_Meetings extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         previousEventList = new ArrayList<>();
-        eventAdapter = new EventsAdapter(previousEventList);
+        eventAdapter = new EventsAdapter(previousEventList,this);
         recyclerView.setAdapter(eventAdapter);
 
         client = new OkHttpClient();
