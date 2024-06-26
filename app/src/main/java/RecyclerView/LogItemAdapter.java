@@ -71,7 +71,7 @@ public class LogItemAdapter extends RecyclerView.Adapter<LogItemAdapter.LogItemV
            firstName.setText(logItem.getFirst_name());
           middleName.setText(logItem.getMiddle_name());
            lastName.setText(logItem.getLast_name());
-          participantId.setText(String.valueOf(logItem.getParticipant_id()));
+         // participantId.setText(String.valueOf(logItem.getParticipant_id()));
 
 
         }
