@@ -22,17 +22,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <ImageButton
-        android:id="@+id/calndr_icon"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:src="@drawable/baseline_calendar_month_24"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:backgroundTint="@color/green"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="16dp"
-        android:onClick="onClick" />
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"

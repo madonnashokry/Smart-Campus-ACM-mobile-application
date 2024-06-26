@@ -224,7 +224,7 @@ public class Attendence_tracking extends AppCompatActivity {
             try {
                 int eventId = event.getInt("event_id");
                 for (JSONObject record : attendanceRecords) {
-                    if (record.getInt("event_id") == eventId && record.getInt("attended") == 1) {
+                    if (record.getInt("event_id") == eventId && parseAttended(record.get("attended"))) {
                         attendedEvents++;
                         break;
                     }
@@ -237,6 +237,16 @@ public class Attendence_tracking extends AppCompatActivity {
         float attendancePercentage = totalEvents > 0 ? ((float) attendedEvents / totalEvents) * 100 : 0;
 
         runOnUiThread(() -> updatePieChart(attendancePercentage));
+    }
+
+    private boolean parseAttended(Object attended) {
+        if (attended instanceof Boolean) {
+            return (Boolean) attended;
+        } else if (attended instanceof Integer) {
+            return (Integer) attended == 1;
+        } else {
+            return false;
+        }
     }
 
     private void updatePieChart(float attendancePercentage) {

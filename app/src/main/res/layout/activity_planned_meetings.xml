@@ -8,17 +8,6 @@
     android:background="#F5F5F5"
     tools:context=".Planned_Meetings">
 
-    <ImageButton
-        android:id="@+id/editr_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:onClick="onEditButtonClick"
-        android:src="@drawable/baseline_edit_square_24"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.049"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
             android:id="@+id/meetings_text"

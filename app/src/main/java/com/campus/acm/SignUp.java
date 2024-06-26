@@ -113,6 +113,7 @@ public class SignUp extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), "Sign up successful", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(SignUp.this, SignInActivity.class);
                             startActivity(intent);
+                            // TODO: call the create token function
                         }
                     });
                 } else {

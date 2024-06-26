@@ -11,7 +11,7 @@ public class Events {
     String start_time;
     String room_id;
     String  course_id;
-String end_time;
+     String end_time;
     Course course ;
     user organizer ;
     Room room ;
@@ -140,33 +140,33 @@ String end_time;
         this.organizer = organizer;
     }
     //private boolean attended;
-    private int login_time;
-    private int logout_time;
-    private int attended;
+    private String Login_time;
+    private String Logout_time;
+    private boolean attended;
     // Getters and setters for the new fields
 
+
     public boolean isAttended() {
-        return attended == 1;
+        return attended;
     }
 
-    public void setAttended(int attended) {
+    public void setAttended(boolean attended) {
         this.attended = attended;
     }
 
-
-    public int getLogin_time() {
-        return login_time;
+    public String getLogin_time() {
+        return Login_time;
     }
 
-    public void setLogin_time(int login_time) {
-        this.login_time = login_time;
+    public void setLogin_time(String login_time) {
+        this.Login_time = login_time;
     }
 
-    public int getLogout_time() {
-        return logout_time;
+    public String getLogout_time() {
+        return Logout_time;
     }
 
-    public void setLogout_time(int logout_time) {
-        this.logout_time = logout_time;
+    public void setLogout_time(String logout_time) {
+        this.Logout_time = logout_time;
     }
 }

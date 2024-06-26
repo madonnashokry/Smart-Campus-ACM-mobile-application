@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F5F5"
+    tools:context=".event_loggg">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/loggg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".event_loggg">
+        <RelativeLayout
+            android:id="@+id/rlTopBar"
+            android:layout_width="0dp"
+            android:layout_height="90dp"
+            android:layout_marginBottom="41dp"
+            android:background="#0E9090"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints">
+
+        <!-- Back button -->
+
+        <!-- Title -->
+
+        <ImageButton
+            android:id="@+id/back"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/leftarrow"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:padding="8dp"
+            android:text="Log Event "
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:textSize="25dp"
+            android:gravity="center"
+            app:layout_constraintStart_toEndOf="@id/back"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </RelativeLayout>
+
+    <!-- Adjusted Submit Button -->
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/lotrecyc"
+        android:layout_width="408dp"
+        android:layout_height="526dp"
+        android:layout_marginTop="60dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rlTopBar"
+        tools:itemCount="5"
+        tools:listitem="@layout/log_item_view" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>

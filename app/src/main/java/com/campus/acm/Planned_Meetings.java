@@ -50,7 +50,7 @@ public class Planned_Meetings extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_planned_meetings);
 
-        editt = findViewById(R.id.editr_button);
+
         cale = findViewById(R.id.calndr_icon);
         //editt.setOnClickListener(v -> navigateToSchedulingActivity());
         SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences", MODE_PRIVATE);
@@ -60,9 +60,10 @@ public class Planned_Meetings extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         EventsList = new ArrayList<>();
-        eventAdapter = new EventsAdapter(EventsList,this
+        eventAdapter = new EventsAdapter(EventsList, this
         );
-        eventAdapter.setOnItemClickListener(this::navigateToSchedulingActivity);
+        //eventAdapter.setOnItemClickListener(this::navigateToSchedulingActivity);
+        eventAdapter.setPlannedMeetingsActivity(true); // Set this to true if in PlannedMeetingsActivity
 
         recyclerView.setAdapter(eventAdapter);
 
@@ -96,13 +97,13 @@ public class Planned_Meetings extends AppCompatActivity {
             }
         });
     }
+
     private void navigateToSchedulingActivity(Events event) {
         Intent intent = new Intent(this, Scheduling.class);
         Log.d("NavigateToScheduling", "Navigating to scheduling activity with event ID: " + event.getEvent_id());
-        intent.putExtra("event_id", event.getEvent_id());
+
         startActivity(intent);
     }
-
 
 
     private void fetchUserDetails() {
@@ -191,7 +192,8 @@ public class Planned_Meetings extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     String responseBody = response.body().string();
                     Log.d("API Response", "Events response: " + responseBody);
-                    List<Events> events = gson.fromJson(responseBody, new TypeToken<List<Events>>() {}.getType());
+                    List<Events> events = gson.fromJson(responseBody, new TypeToken<List<Events>>() {
+                    }.getType());
                     List<Events> filteredEvents = new ArrayList<>();
 
                     for (Events event : events) {
@@ -217,8 +219,4 @@ public class Planned_Meetings extends AppCompatActivity {
     }
 
 
-    private void navigateToSchedulingActivit() {
-        Intent intent = new Intent(Planned_Meetings.this, Scheduling.class);
-        startActivity(intent);
-    }
 }

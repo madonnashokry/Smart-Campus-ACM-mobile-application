@@ -188,7 +188,7 @@ public class SignInActivity extends AppCompatActivity {
                     Intent intent;
                     if ("student".equalsIgnoreCase(role)) {
                         intent = new Intent(SignInActivity.this, student_home.class);
-                    } else if ("staff".equalsIgnoreCase(role)) {
+                    } else if ("staff".equalsIgnoreCase(role) || "ta".equalsIgnoreCase(role) || "professor".equalsIgnoreCase(role) || "dean".equalsIgnoreCase(role) || "vice dean".equalsIgnoreCase(role)) {
                         intent = new Intent(SignInActivity.this, Home.class);
                     } else {
                         runOnUiThread(() -> Toast.makeText(SignInActivity.this, "Unknown user role", Toast.LENGTH_SHORT).show());

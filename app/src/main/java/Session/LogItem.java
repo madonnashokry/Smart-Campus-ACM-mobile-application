@@ -1,32 +1,32 @@
 package Session;
 
 public class LogItem {
-    private int participantId;
-    private String firstName;
-    private String middleName;
-    private String lastName;
+    private int participant_id;
+    private String first_name;
+    private String middle_name;
+    private String last_name;
     private String role;
     private String eventName;
     private String courseName;
 
-    private int Login_time;  // Store as seconds since midnight
-    private int Logout_time;
+    private String Login_time;  // Store as seconds since midnight
+    private String Logout_time;
     private boolean attended;
     private String duration;
 
-    public int getLogin_time() {
+    public String getLogin_time() {
         return Login_time;
     }
 
-    public void setLogin_time(int login_time) {
+    public void setLogin_time(String login_time) {
         Login_time = login_time;
     }
 
-    public int getLogout_time() {
+    public String getLogout_time() {
         return Logout_time;
     }
 
-    public void setLogout_time(int logout_time) {
+    public void setLogout_time(String logout_time) {
         Logout_time = logout_time;
     }
 
@@ -51,48 +51,36 @@ public class LogItem {
         this.courseName = courseName;
     }
 
-    public LogItem(int participantId, String firstName, String middleName, String lastName, String role, int loginTime, int logoutTime, boolean attended) {
-
-        this.participantId = participantId;
-        this.firstName = firstName;
-        this.middleName = middleName;
-        this.lastName = lastName;
-        this.role = role;
-        this.Login_time = loginTime;
-        this.Logout_time = logoutTime;
-        this.attended = attended;
+    public int getParticipant_id() {
+        return participant_id;
     }
 
-    public int getParticipantId() {
-        return participantId;
+    public void setParticipant_id(int participant_id) {
+        this.participant_id = participant_id;
     }
 
-    public void setParticipantId(int participantId) {
-        this.participantId = participantId;
+    public String getFirst_name() {
+        return first_name;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public void setFirst_name(String first_name) {
+        this.first_name = first_name;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public String getMiddle_name() {
+        return middle_name;
     }
 
-    public String getMiddleName() {
-        return middleName;
+    public void setMiddle_name(String middle_name) {
+        this.middle_name = middle_name;
     }
 
-    public void setMiddleName(String middleName) {
-        this.middleName = middleName;
+    public String getLast_name() {
+        return last_name;
     }
 
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setLast_name(String last_name) {
+        this.last_name = last_name;
     }
 
     public String getRole() {
@@ -111,6 +99,8 @@ public class LogItem {
     public void setAttended(boolean attended) {
         this.attended = attended;
     }
+
+
     public String getDuration() {
         return duration;
     }

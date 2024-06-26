@@ -1,5 +1,6 @@
 package com.campus.acm;
 
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -26,6 +27,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -61,7 +63,7 @@ public class Scheduling extends AppCompatActivity {
 
 
     EditText editTextOrganizerID;
-
+    ImageButton calendbtn ;
 
 
 EditText CourseIDd;
@@ -84,7 +86,7 @@ EditText CourseIDd;
         editTextOrganizerID = findViewById(R.id.orgnizer);
         CourseIDd = findViewById(R.id.courseID);
         Button addButton = findViewById(R.id.buttonnnnn);
-
+        calendbtn = findViewById(R.id.sign_up_calender_btn);
         client = new OkHttpClient();
 
         ///spinner
@@ -130,7 +132,8 @@ EditText CourseIDd;
             @Override
             public void onClick(View v) {
                 add_event();
-
+                Intent intt = new Intent(Scheduling.this, Add_Attendee.class);
+                startActivity(intt);
             }
         });
         Button updateButton = findViewById(R.id.updateButton);
@@ -138,6 +141,30 @@ EditText CourseIDd;
             @Override
             public void onClick(View v) {
                 updateEvent(eventId);
+            }
+        });
+        calendbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("CalendarButton", "Calendar button clicked");
+
+                Calendar cal = Calendar.getInstance();
+                int year = cal.get(Calendar.YEAR);
+                int month = cal.get(Calendar.MONTH);
+                int day = cal.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog dialog = new DatePickerDialog(
+                        Scheduling.this,
+                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                        (view1, year1, month1, dayOfMonth) -> {
+                            month1 = month1 + 1;
+                            String date = year1 + "-" + String.format("%02d", month1) + "-" + String.format("%02d", dayOfMonth);
+                            editTextDate.setText(date);
+                        },
+                        year, month, day);
+
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.show();
             }
         });
 

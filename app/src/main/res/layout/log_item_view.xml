@@ -46,6 +46,57 @@
                 android:textStyle="bold" />
         </LinearLayout>
 
+        <!-- Participant Info -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="8dp"
+            android:paddingLeft="15dp">
+
+            <TextView
+                android:id="@+id/firstname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:fontFamily="sans-serif"
+                android:text="  "
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/middlname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:fontFamily="sans-serif"
+                android:text="  "
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/lastname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:layout_marginLeft="8dp"
+                android:fontFamily="sans-serif"
+                android:text="  "
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/participant_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:layout_marginLeft="100dp"
+                android:fontFamily="sans-serif"
+                android:text="    "
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+        </LinearLayout>
+
         <!-- Other Log Item Details -->
         <LinearLayout
             android:layout_width="match_parent"
@@ -54,9 +105,8 @@
             android:paddingBottom="8dp">
 
             <LinearLayout
-                android:layout_width="50dp"
+                android:layout_width="wrap_content"
                 android:layout_height="60dp"
-
                 android:layout_marginLeft="100dp"
                 android:layout_weight="1"
                 android:orientation="vertical">

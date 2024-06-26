@@ -46,6 +46,7 @@ public class LogItemAdapter extends RecyclerView.Adapter<LogItemAdapter.LogItemV
         private TextView roleTextView;
         private TextView loginTimeTextView;
         private TextView logoutTimeTextView;
+        TextView firstName, middleName, lastName, participantId;
 
         public LogItemViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -55,6 +56,10 @@ public class LogItemAdapter extends RecyclerView.Adapter<LogItemAdapter.LogItemV
 
             loginTimeTextView = itemView.findViewById(R.id.logintime);
             logoutTimeTextView = itemView.findViewById(R.id.logouttime);
+            firstName = itemView.findViewById(R.id.firstname);
+            middleName = itemView.findViewById(R.id.middlname);
+            lastName = itemView.findViewById(R.id.lastname);
+            participantId = itemView.findViewById(R.id.participant_id);
         }
 
         public void bind(LogItem logItem) {
@@ -63,20 +68,23 @@ public class LogItemAdapter extends RecyclerView.Adapter<LogItemAdapter.LogItemV
             attendeeTextView.setText(logItem.isAttended() ? "true" : "false");
             loginTimeTextView.setText(formatTime(logItem.getLogin_time()));
             logoutTimeTextView.setText(formatTime(logItem.getLogout_time()));
+           firstName.setText(logItem.getFirst_name());
+          middleName.setText(logItem.getMiddle_name());
+           lastName.setText(logItem.getLast_name());
+          participantId.setText(String.valueOf(logItem.getParticipant_id()));
+
+
         }
 
-        private String formatTime(int secondsSinceMidnight) {
-            int hours = secondsSinceMidnight / 3600;
-            int minutes = (secondsSinceMidnight % 3600) / 60;
-            int seconds = secondsSinceMidnight % 60;
-
-            // Ensure that hours, minutes, and seconds are within valid ranges
-            hours %= 24;
-            minutes %= 60;
-            seconds %= 60;
-
-            return String.format("%02d:%02d:%02d", hours, minutes, seconds);
+        private String formatTime(String duration) {
+            try {
+                long seconds = Long.parseLong(duration.replace("PT", "").replace("S", ""));
+                long hours = seconds / 3600;
+                long minutes = (seconds % 3600) / 60;
+                return String.format("%02d:%02d", hours, minutes);
+            } catch (Exception e) {
+                return "Unknown time";
+            }
         }
-
     }
 }

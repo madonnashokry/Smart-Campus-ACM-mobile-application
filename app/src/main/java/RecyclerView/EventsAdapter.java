@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.campus.acm.R;
-import com.campus.acm.Scheduling;
+import com.campus.acm.optionsviews;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -24,19 +24,16 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.MeetingVie
     private List<Events> events;
     private Context context;
     private static final String TAG = "EventsAdapter";
-    private OnItemClickListener onItemClickListener;
-
-
-    public interface OnItemClickListener {
-        void onItemClick(Events event);
-    }
+    private boolean isPlannedMeetingsActivity;
 
     public EventsAdapter(List<Events> events, Context context) {
         this.events = events;
         this.context = context;
     }
-    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
-        this.onItemClickListener = onItemClickListener;
+
+    // Setter method for isPlannedMeetingsActivity
+    public void setPlannedMeetingsActivity(boolean isPlannedMeetingsActivity) {
+        this.isPlannedMeetingsActivity = isPlannedMeetingsActivity;
     }
 
     @NonNull
@@ -63,11 +60,16 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.MeetingVie
             holder.time.setText(formattedTime);
             holder.room_name.setText(roomName);
 
-            holder.itemView.setOnClickListener(v -> {
-                Intent intent = new Intent(context, Scheduling.class);
-                intent.putExtra("event_id", event.getEvent_id());
-                context.startActivity(intent);
-            });
+            // Check if in PlannedMeetingsActivity before setting the click listener
+            if (isPlannedMeetingsActivity) {
+                holder.itemView.setOnClickListener(v -> {
+                    Intent intent = new Intent(context, optionsviews.class);
+                    intent.putExtra("event_id", event.getEvent_id());
+                    context.startActivity(intent);
+                });
+            } else {
+                holder.itemView.setOnClickListener(null); // or set a different listener if needed
+            }
         } catch (Exception e) {
             e.printStackTrace();
             Log.e(TAG, "Error binding view at position " + position, e);
