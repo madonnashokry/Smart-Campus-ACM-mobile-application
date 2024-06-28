@@ -33,7 +33,7 @@ public class Token extends AppCompatActivity {
     }
 
 
-    public void generate_token () throws GeneralSecurityException, IOException {
+    public static String generate_token () throws GeneralSecurityException, IOException {
         SecureRandom random = new SecureRandom();
         long csprng =  random.nextLong() % (long) 1e50;
         byte [] bytes_csprng = Long.toString(csprng).getBytes();
@@ -45,12 +45,13 @@ public class Token extends AppCompatActivity {
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
+        return sha256Hash;
 
-        SecurePreferencesHelper.setToken(getApplicationContext(),sha256Hash);
+
 
     }
 
-    private String bytesToHex(byte[] hashedBytes) {
+    private static String bytesToHex(byte[] hashedBytes) {
         StringBuilder result = new StringBuilder();
         for (byte b : hashedBytes) {
             result.append(String.format("%02x", b));

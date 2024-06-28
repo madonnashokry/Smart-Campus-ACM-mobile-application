@@ -7,13 +7,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import com.campus.acm.SecurePreferencesHelper;
+import com.campus.acm.Token;
 import androidx.appcompat.app.AppCompatActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.security.GeneralSecurityException;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -24,7 +26,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class SignUp extends AppCompatActivity {
-
+    String generated_token;
     EditText etFirstName, etMiddleName, etLastName, etSSN, etPassword, etEmail;
     Button btnSignUp;
     TextView tvAlreadyHaveAccount;
@@ -61,6 +63,8 @@ public class SignUp extends AppCompatActivity {
                 } catch (JSONException | IOException e) {
                     e.printStackTrace();
                     Toast.makeText(getApplicationContext(), "Sign up failed: Error sending request", Toast.LENGTH_SHORT).show();
+                } catch (GeneralSecurityException e) {
+                    throw new RuntimeException(e);
                 }
 
                 Intent i = new Intent(SignUp.this, SignInActivity.class);
@@ -69,7 +73,7 @@ public class SignUp extends AppCompatActivity {
         });
     }
 
-    private void createUser(String f_name, String m_name, String l_name, String email, String ssn, String password) throws JSONException, IOException {
+    private void createUser(String f_name, String m_name, String l_name, String email, String ssn, String password) throws JSONException, IOException, GeneralSecurityException {
         JSONObject userData = new JSONObject();
         userData.put("f_name", f_name);
         userData.put("m_name", m_name);
@@ -77,6 +81,11 @@ public class SignUp extends AppCompatActivity {
         userData.put("ssn", ssn);
         userData.put("email", email);
         userData.put("password", password);
+
+        // TODO: generate the token here
+        generated_token = Token.generate_token();
+        // TODO: ADD the token to the json object
+        userData.put("token", generated_token);
 
         doPostRequest(userData);
     }
@@ -110,10 +119,12 @@ public class SignUp extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+                            // TODO: call the set token function in shared pref
+                            SecurePreferencesHelper.setToken(getApplicationContext(),generated_token);
                             Toast.makeText(getApplicationContext(), "Sign up successful", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "TOKEN is generated successfully", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(SignUp.this, SignInActivity.class);
                             startActivity(intent);
-                            // TODO: call the create token function
                         }
                     });
                 } else {
